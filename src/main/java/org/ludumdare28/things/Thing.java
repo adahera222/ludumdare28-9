@@ -1,11 +1,13 @@
-package org.ludumdare28.entities;
+package org.ludumdare28.things;
 
 import org.ludumdare28.inventory.Inventory;
 import org.ludumdare28.ground.Ground;
+import org.ludumdare28.things.aspects.EdibleAspect;
 
 /**
  * Any object in the game.
  */
+// TODO: Refactor move to an aspect
 public interface Thing {
 
     /**
@@ -54,5 +56,10 @@ public interface Thing {
      * @param listener listener to remove.
      */
     void removeThingListener(ThingListener listener);
+
+    /**
+     * @return data bout the nutrition value of this thing if it is edible, null if it is not edible.
+     */
+    EdibleAspect getEdibleAspect();
 
 }

@@ -1,4 +1,4 @@
-package org.ludumdare28.entities;
+package org.ludumdare28.things;
 
 /**
  * Something that is notified when a thing changes.

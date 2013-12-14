@@ -6,7 +6,7 @@ import org.ludumdare28.inventory.InventoryImpl;
 /**
  * Author: Shiera
  */
-public class Player  extends BaseThing{
+public class Player  extends ThingBase {
     private String name;
     private double baseSpeed;
     private double speed;

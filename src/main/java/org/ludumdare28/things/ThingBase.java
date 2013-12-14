@@ -1,14 +1,16 @@
-package org.ludumdare28;
+package org.ludumdare28.things;
 
-import org.ludumdare28.things.Thing;
-import org.ludumdare28.things.ThingListener;
 import org.ludumdare28.ground.Ground;
 import org.ludumdare28.inventory.Inventory;
+import org.ludumdare28.things.aspects.EdibleAspect;
 
 /**
- * Dummy thing used for unit testing
+ *
  */
-public class TestThing implements Thing {
+public abstract class ThingBase implements Thing {
+
+    private EdibleAspect edibleAspect = null;
+
     @Override public Inventory getInventory() {
         // TODO: Implement
         return null;
@@ -52,5 +54,13 @@ public class TestThing implements Thing {
     @Override public void removeThingListener(ThingListener listener) {
         // TODO: Implement
 
+    }
+
+    @Override public EdibleAspect getEdibleAspect() {
+        return edibleAspect;
+    }
+
+    public void setEdibleAspect(EdibleAspect edibleAspect) {
+        this.edibleAspect = edibleAspect;
     }
 }

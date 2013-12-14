@@ -1,6 +1,6 @@
 package org.ludumdare28.ground;
 
-import org.ludumdare28.entities.Thing;
+import org.ludumdare28.things.Thing;
 
 /**
  * Information about the ground terrain and all things located on the ground.
