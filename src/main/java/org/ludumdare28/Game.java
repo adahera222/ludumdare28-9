@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
+import org.ludumdare28.world.World;
 
 /**
  *
@@ -11,13 +12,20 @@ import com.badlogic.gdx.graphics.GL20;
 public class Game implements ApplicationListener {
     // Logging prefix
     public static final String LOG = Game.class.getSimpleName();
+    private final World world;
 
     // Calculates the number of frames drawn per second
     private FPSLogger fpsLogger;
 
+    public Game(World world) {
+        this.world = world;
+    }
+
     @Override public void create() {
         Gdx.app.log(LOG, "Creating game");
         fpsLogger = new FPSLogger();
+
+        // Create game view
     }
 
     @Override public void resize(int width, int height) {

@@ -2,16 +2,23 @@ package org.ludumdare28;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
+import org.ludumdare28.world.World;
+import org.ludumdare28.world.WorldImpl;
 
 /**
  * Main class for the game.
  */
-public class GameMain {
+public class Main {
 
     public static void main(String[] args) {
 
+        // Create game world
+        World world = new WorldImpl();
+
+
+
         // Create the Game that will receive the application events
-        Game listener = new Game();
+        Game listener = new Game(world);
 
         // Define the window's title
         String title = "KeepOnLiving";
