@@ -1,44 +1,44 @@
 package org.ludumdare28;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Author: Shiera
+ * Inventory with the players items, as well as the currently selected item.
  */
-public class Inventory {
+public interface Inventory {
 
-    private final ArrayList<Thing> inventory= new ArrayList<Thing>();
-    private int maxSlots;
+    /**
+     * @param thingToAdd Something to add to the inventory.
+     * @throws IllegalStateException if there was not enough space.
+     */
+    void addToInventory(Thing thingToAdd);
 
-    public Inventory(int maxInventorySlots){
-        maxSlots = maxInventorySlots;
-    }
+    /**
+     * @param thingToRemove Something to remove from the inventory.
+     * @throws IllegalArgumentException if the thing was not in the inventory.
+     */
+    void removeFromInventory(Thing thingToRemove);
 
-    public boolean addToInventory(Thing newThing){
-        if (inventory.size() < maxSlots){
-            inventory.add(newThing);
-            return true;
-        }
-        return false;
-    }
+    /**
+     * @return all the things currently in the inventory, including the selected thing.
+     */
+    List<Thing> getThings();
 
-    public void useThing(){
-        Thing usingThisThing = chooseThing();
+    /**
+     * @return number of open slots left in the inventory.
+     */
+    int getOpenSlots();
 
-    }
+    /**
+     * @param thingToSelect thing to select, or null if should select none.
+     * @throws IllegalStateException if there was not enough space.
+     */
+    void setSelectedThing(Thing thingToSelect);
 
-    // removes this thing from the inventory
-    public void removeFromInventory(){
-        Thing removingThisThing = chooseThing();
-        inventory.remove(removingThisThing);
-    }
-
-
-
-    private Thing chooseThing(){
-        // make something to choose a thing whit return choosed thing
-        return null;
-    }
+    /**
+     * @return get selected thing, or null if none selected.
+     */
+    Thing getSelectedThing();
 
 
 }
