@@ -1,5 +1,7 @@
 package org.ludumdare28;
 
+import org.ludumdare28.entities.Thing;
+
 import java.util.ArrayList;
 import java.util.List;
 

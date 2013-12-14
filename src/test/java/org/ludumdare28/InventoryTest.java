@@ -3,6 +3,7 @@ package org.ludumdare28;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+import org.ludumdare28.entities.Thing;
 
 import java.util.List;
 
