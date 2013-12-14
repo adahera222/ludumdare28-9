@@ -1,4 +1,4 @@
-package org.ludumdare28;
+package org.ludumdare28.things;
 
 /**
  * Author: Shiera

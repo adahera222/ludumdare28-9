@@ -1,6 +1,6 @@
 package org.ludumdare28.world;
 
-import org.ludumdare28.Player;
+import org.ludumdare28.things.Player;
 import org.ludumdare28.Updating;
 import org.ludumdare28.ground.Ground;
 

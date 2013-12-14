@@ -1,4 +1,4 @@
-package org.ludumdare28;
+package org.ludumdare28.inventory;
 
 import org.ludumdare28.entities.Thing;
 

@@ -6,8 +6,7 @@ package org.ludumdare28;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-
-import java.util.List;
+import org.ludumdare28.things.Player;
 
 public class PlayerStatTest {
 

@@ -1,6 +1,6 @@
 package org.ludumdare28.entities;
 
-import org.ludumdare28.Inventory;
+import org.ludumdare28.inventory.Inventory;
 import org.ludumdare28.ground.Ground;
 
 /**

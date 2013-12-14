@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.ludumdare28.entities.Thing;
+import org.ludumdare28.inventory.Inventory;
+import org.ludumdare28.inventory.InventoryImpl;
 
 import java.util.List;
 

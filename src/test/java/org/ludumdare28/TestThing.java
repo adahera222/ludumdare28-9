@@ -3,6 +3,7 @@ package org.ludumdare28;
 import org.ludumdare28.entities.Thing;
 import org.ludumdare28.entities.ThingListener;
 import org.ludumdare28.ground.Ground;
+import org.ludumdare28.inventory.Inventory;
 
 /**
  * Dummy thing used for unit testing

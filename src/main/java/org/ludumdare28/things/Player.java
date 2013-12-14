@@ -1,4 +1,7 @@
-package org.ludumdare28;
+package org.ludumdare28.things;
+
+import org.ludumdare28.inventory.Inventory;
+import org.ludumdare28.inventory.InventoryImpl;
 
 /**
  * Author: Shiera
