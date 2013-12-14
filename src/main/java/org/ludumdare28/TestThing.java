@@ -14,5 +14,6 @@ public class TestThing extends Thing implements Etable{
     @Override
     public boolean use() {
         return false;
+
     }
 }

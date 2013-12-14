@@ -6,12 +6,12 @@ import java.util.ArrayList;
  * Author: Shiera
  */
 public class Inventory {
-
-    private final ArrayList<Thing> inventory= new ArrayList<Thing>();
+    private ArrayList<Thing> inventory;
     private int maxSlots;
 
-    public Inventory(int maxInventorySlots){
-        maxSlots = maxInventorySlots;
+    public Inventory(int maxsInventorySlots){
+        inventory = new ArrayList<Thing>();
+        maxSlots = maxsInventorySlots;
     }
 
     public boolean addToInventory(Thing newThing){
@@ -22,23 +22,14 @@ public class Inventory {
         return false;
     }
 
-    public void useThing(){
-        Thing usingThisThing = chooseThing();
+    //TODO show inventory
 
-    }
 
-    // removes this thing from the inventory
     public void removeFromInventory(){
-        Thing removingThisThing = chooseThing();
-        inventory.remove(removingThisThing);
+        removable = chooseThing();
     }
-
-
 
     private Thing chooseThing(){
         // make something to choose a thing whit return choosed thing
-        return null;
     }
-
-
 }
