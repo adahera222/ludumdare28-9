@@ -1,6 +1,7 @@
 package org.ludumdare28;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Author: Shiera
@@ -9,35 +10,46 @@ public class InventoryImpl implements Inventory {
 
     private final ArrayList<Thing> inventory= new ArrayList<Thing>();
     private int maxSlots;
+    private Thing selectedThing;
 
     public InventoryImpl(int maxInventorySlots){
         maxSlots = maxInventorySlots;
     }
 
-    @Override public boolean addToInventory(Thing thingToAdd){
-        if (inventory.size() < maxSlots){
-            inventory.add(thingToAdd);
-            return true;
+    @Override
+    public void addToInventory(Thing thingToAdd) {
+        if (inventory.size() >= maxSlots){
+            throw new IllegalArgumentException("no space in inventory");
         }
-        return false;
+        inventory.add(thingToAdd);
     }
 
-    public void useThing(){
-        Thing usingThisThing = chooseThing();
-
+    @Override
+    public void removeFromInventory(Thing thingToRemove) {
+        if (!inventory.contains(thingToRemove)){
+            throw new IllegalArgumentException("inventory does not contain " + thingToRemove);
+        }
+        inventory.remove(thingToRemove);
     }
 
-    // removes this thing from the inventory
-    @Override public void removeFromInventory(){
-        Thing removingThisThing = chooseThing();
-        inventory.remove(removingThisThing);
+    @Override
+    public List<Thing> getThings() {
+        return inventory;
     }
 
+    @Override
+    public int getOpenSlots() {
+        return maxSlots - inventory.size();
+    }
 
+    @Override
+    public void setSelectedThing(Thing thingToSelect) {
+        selectedThing = thingToSelect;
+    }
 
-    private Thing chooseThing(){
-        // make something to choose a thing whit return choosed thing
-        return null;
+    @Override
+    public Thing getSelectedThing() {
+        return selectedThing;
     }
 
 
