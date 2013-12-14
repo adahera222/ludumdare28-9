@@ -6,12 +6,12 @@ import java.util.ArrayList;
  * Author: Shiera
  */
 public class Inventory {
-    private ArrayList<Thing> inventory;
+
+    private final ArrayList<Thing> inventory= new ArrayList<Thing>();
     private int maxSlots;
 
-    public Inventory(int maxsInventorySlots){
-        inventory = new ArrayList<Thing>();
-        maxSlots = maxsInventorySlots;
+    public Inventory(int maxInventorySlots){
+        maxSlots = maxInventorySlots;
     }
 
     public boolean addToInventory(Thing newThing){
