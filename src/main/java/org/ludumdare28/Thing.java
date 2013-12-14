@@ -3,5 +3,9 @@ package org.ludumdare28;
 /**
  * Author: Shiera
  */
-public class Thing {
+public abstract class Thing {
+
+
+    public abstract boolean use();
+
 }
