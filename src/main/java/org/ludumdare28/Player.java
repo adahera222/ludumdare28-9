@@ -8,11 +8,10 @@ public class Player {
     private double baseSpeed;
     private double speed;
     private Inventory inventory;
-
     private int hunger;
     private int thirst;
-    private int needToSleep;
-
+    private int tirednes;
+    private int damage;
     private int maxStat;
     /*
     -the player have a name that can be given in the beginning of the game.
@@ -28,7 +27,8 @@ public class Player {
         speed = baseSpeed;
         hunger = 0;
         thirst = 0;
-        needToSleep = 0;
+        tirednes = 0;
+        damage = 0;
         this.maxStat = maxStat;
         inventory = new InventoryImpl(maxInventorySlots);
     }
