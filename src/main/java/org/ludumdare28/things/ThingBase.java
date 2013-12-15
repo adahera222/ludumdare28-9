@@ -131,7 +131,9 @@ public abstract class ThingBase implements Thing {
 
     @Override
     public void delete() {
-        world.deleteThing(this);
+        if (world != null) {
+            world.deleteThing(this);
+        }
     }
 
     @Override public void update(double timeSinceLastCall, double totalGameTime) {
