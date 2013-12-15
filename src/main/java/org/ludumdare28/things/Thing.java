@@ -3,6 +3,7 @@ package org.ludumdare28.things;
 import org.ludumdare28.Updating;
 import org.ludumdare28.inventory.Inventory;
 import org.ludumdare28.ground.Ground;
+import org.ludumdare28.things.aspects.DrinkableAspect;
 import org.ludumdare28.things.aspects.EdibleAspect;
 import org.ludumdare28.world.World;
 
@@ -74,7 +75,11 @@ public interface Thing extends Updating {
      */
     EdibleAspect getEdibleAspect();
 
+    DrinkableAspect getDrinkableAspect();
+
     boolean isStackable();
 
     void delete();
+
+    boolean isPickable();
 }

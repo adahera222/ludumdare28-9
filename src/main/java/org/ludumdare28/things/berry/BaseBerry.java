@@ -17,4 +17,9 @@ public abstract class BaseBerry extends ThingBase {
     public boolean isStackable() {
         return true;
     }
+
+    @Override
+    public boolean isPickable() {
+        return true;
+    }
 }

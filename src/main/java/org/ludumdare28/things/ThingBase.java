@@ -2,6 +2,7 @@ package org.ludumdare28.things;
 
 import org.ludumdare28.ground.Ground;
 import org.ludumdare28.inventory.Inventory;
+import org.ludumdare28.things.aspects.DrinkableAspect;
 import org.ludumdare28.things.aspects.EdibleAspect;
 import org.ludumdare28.world.World;
 
@@ -19,26 +20,33 @@ public abstract class ThingBase implements Thing {
     private Ground ground;
     private Inventory inventoryThingIsIn;
     private EdibleAspect edibleAspect;
+    private DrinkableAspect drinkableAspect;
     private Set<ThingListener> listeners = new HashSet<ThingListener>(4);
     private World world;
 
-    protected ThingBase(double posX ,double posY , EdibleAspect edibleAspect) {
+    protected ThingBase(double posX ,double posY , EdibleAspect edibleAspect, DrinkableAspect drinkableAspect) {
         this.posX = posX;
         this.edibleAspect = edibleAspect;
+        this.drinkableAspect = drinkableAspect;
         this.posY = posY;
         this.inventoryThingIsIn = null;
+
     }
 
     protected ThingBase(double posX, double posY) {
-       this(posX, posY, null);
+       this(posX, posY, null, null);
     }
 
     protected ThingBase() {
-        this(0,0,null);
+        this(0,0,null, null);
     }
 
     protected ThingBase(EdibleAspect edibleAspect) {
-        this(0,0, edibleAspect);
+        this(0,0, edibleAspect, null);
+    }
+
+    protected ThingBase (DrinkableAspect drinkableAspect){
+        this(0, 0, null, drinkableAspect );
     }
 
     public World getWorld() {
@@ -125,6 +133,15 @@ public abstract class ThingBase implements Thing {
     }
 
     @Override
+    public DrinkableAspect getDrinkableAspect() {
+        return drinkableAspect;
+    }
+
+    public void setDrinkableAspect(DrinkableAspect drinkableAspect){
+        this.drinkableAspect = drinkableAspect;
+    }
+
+    @Override
     public boolean isStackable() {
         return false;
     }
@@ -137,5 +154,10 @@ public abstract class ThingBase implements Thing {
     }
 
     @Override public void update(double timeSinceLastCall, double totalGameTime) {
+    }
+
+    @Override
+    public boolean isPickable() {
+        return false;
     }
 }
