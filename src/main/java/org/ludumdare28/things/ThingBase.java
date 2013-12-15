@@ -3,6 +3,12 @@ package org.ludumdare28.things;
 import org.ludumdare28.ground.Ground;
 import org.ludumdare28.inventory.Inventory;
 import org.ludumdare28.things.aspects.EdibleAspect;
+import org.ludumdare28.world.World;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -10,8 +16,11 @@ import org.ludumdare28.things.aspects.EdibleAspect;
 public abstract class ThingBase implements Thing {
     private double posX;
     private double posY;
+    private Ground ground;
     private Inventory inventoryThingIsIn;
     private EdibleAspect edibleAspect;
+    private Set<ThingListener> listeners = new HashSet<ThingListener>(4);
+    private World world;
 
     protected ThingBase(double posX ,double posY , EdibleAspect edibleAspect) {
         this.posX = posX;
@@ -32,13 +41,12 @@ public abstract class ThingBase implements Thing {
         this(0,0, edibleAspect);
     }
 
-    @Override public Inventory getInventoryThingIsIn() {
-        return inventoryThingIsIn;
+    public World getWorld() {
+        return world;
     }
 
-    @Override public Ground getGround() {
-        // TODO: Implement
-        return null;
+    public void setWorld(World world) {
+        this.world = world;
     }
 
     @Override public double getX() {
@@ -49,30 +57,63 @@ public abstract class ThingBase implements Thing {
         return posY;
     }
 
+    public Ground getGround() {
+        return ground;
+    }
+
+    @Override public Inventory getInventoryThingIsIn() {
+        return inventoryThingIsIn;
+    }
+
     @Override public void setPos(double x, double y) {
+        double oldX = posX;
+        double oldY = posY;
         posX = x;
         posY = y;
 
+        // Notify listeners about the move
+        for (ThingListener listener : listeners) {
+            listener.onMoved(this, oldX, oldY, posX, posY);
+        }
     }
 
     @Override public void setInventoryThingIsIn(Inventory inventoryThingIsIn) {
-        this.inventoryThingIsIn = inventoryThingIsIn;
+        if (this.inventoryThingIsIn != inventoryThingIsIn) {
+            this.inventoryThingIsIn = inventoryThingIsIn;
 
+            if (inventoryThingIsIn != null) {
+                ground = null;
+
+                // Notify listeners about the move
+                for (ThingListener listener : listeners) {
+                    listener.onPlacedInInventory(this, inventoryThingIsIn);
+                }
+            }
+        }
     }
 
     @Override public void setGround(Ground ground) {
-        // TODO: Implement
+        if (this.ground != ground) {
+            this.ground = ground;
 
+            if (ground != null) {
+                inventoryThingIsIn = null;
+
+                // Notify listeners about the move
+                for (ThingListener listener : listeners) {
+                    listener.onPlacedOnGround(this, ground, posX, posY);
+                }
+            }
+        }
     }
 
-    @Override public void addThingListener(ThingListener listener) {
-        // TODO: Implement
 
+    @Override public void addThingListener(ThingListener listener) {
+        listeners.add(listener);
     }
 
     @Override public void removeThingListener(ThingListener listener) {
-        // TODO: Implement
-
+        listeners.remove(listener);
     }
 
     @Override public EdibleAspect getEdibleAspect() {
@@ -90,6 +131,9 @@ public abstract class ThingBase implements Thing {
 
     @Override
     public void delete() {
-        // TODO: implement
+        world.deleteThing(this);
+    }
+
+    @Override public void update(double timeSinceLastCall, double totalGameTime) {
     }
 }

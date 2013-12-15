@@ -2,6 +2,9 @@ package org.ludumdare28;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
+import org.ludumdare28.ground.Ground;
+import org.ludumdare28.ground.GroundImpl;
+import org.ludumdare28.things.Player;
 import org.ludumdare28.world.World;
 import org.ludumdare28.world.WorldImpl;
 
@@ -12,8 +15,14 @@ public class Main {
 
     public static void main(String[] args) {
 
+        // Create ground
+        Ground ground = new GroundImpl(100, 100);
+
+        // Create player
+        Player player = new Player("Player One", 10);
+
         // Create game world
-        World world = new WorldImpl();
+        World world = new WorldImpl(ground, player);
 
 
 

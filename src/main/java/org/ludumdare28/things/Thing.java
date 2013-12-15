@@ -1,14 +1,16 @@
 package org.ludumdare28.things;
 
+import org.ludumdare28.Updating;
 import org.ludumdare28.inventory.Inventory;
 import org.ludumdare28.ground.Ground;
 import org.ludumdare28.things.aspects.EdibleAspect;
+import org.ludumdare28.world.World;
 
 /**
  * Any object in the game.
  */
 // TODO: Refactor move to an aspect
-public interface Thing {
+public interface Thing extends Updating {
 
     /**
      * @return the inventory that the thing is in, or null if it is not in an inventory.
@@ -19,6 +21,16 @@ public interface Thing {
      * @return the ground that the thing is on, or null if it is not on a ground.
      */
     Ground getGround();
+
+    /**
+     * @return the world the thing is in.
+     */
+    World getWorld();
+
+    /**
+     * @param world the world the thing is in.
+     */
+    void setWorld(World world);
 
     /**
      * @return x coordinate of the thing on the ground.

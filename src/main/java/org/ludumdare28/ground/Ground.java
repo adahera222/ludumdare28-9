@@ -26,4 +26,5 @@ public interface Ground {
      */
     void removeThing(Thing thing);
 
+    GroundCell getCell(double x, double y);
 }

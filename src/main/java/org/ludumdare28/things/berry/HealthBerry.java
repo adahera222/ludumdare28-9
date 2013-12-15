@@ -6,7 +6,7 @@ package org.ludumdare28.things.berry;
 public class HealthBerry extends BaseBerry{
 
     /**
-     poisonberry:
+     HealthBerry:
      hunger    = 0
      damage    = -1
      tiredness = 0
