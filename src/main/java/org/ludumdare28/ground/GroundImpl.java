@@ -6,6 +6,8 @@ import org.ludumdare28.things.Thing;
 import org.ludumdare28.things.ThingListener;
 import org.ludumdare28.things.ThingListenerAdapter;
 
+import java.util.Random;
+
 /**
  *
  */
@@ -30,7 +32,7 @@ public class GroundImpl implements Ground {
         }
     };
 
-    public GroundImpl(int sizeX, int sizeY) {
+    public GroundImpl(int sizeX, int sizeY, int randomSeed) {
         this.sizeX = sizeX;
         this.sizeY = sizeY;
 
@@ -38,8 +40,9 @@ public class GroundImpl implements Ground {
         groundCells = new GroundCell[sizeX * sizeY];
 
         // Create cells
+        Random random = new Random(randomSeed);
         for (int i = 0; i < groundCells.length; i++) {
-            groundCells[i] = new GroundCellImpl();
+            groundCells[i] = new GroundCellImpl(TerrainType.SAND, random.nextInt());
         }
     }
 

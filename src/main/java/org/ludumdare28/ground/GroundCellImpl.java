@@ -1,5 +1,7 @@
 package org.ludumdare28.ground;
 
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import org.ludumdare28.things.Thing;
 
 import java.util.ArrayList;
@@ -12,7 +14,12 @@ import java.util.List;
 public class GroundCellImpl implements GroundCell {
     private List<Thing> things = new ArrayList<Thing>(4);
     private TerrainType terrainType;
+    private final int randomSeed;
 
+    public GroundCellImpl(TerrainType terrainType, int randomSeed) {
+        this.terrainType = terrainType;
+        this.randomSeed = randomSeed;
+    }
 
     @Override public TerrainType getTerrainType() {
         return terrainType;
@@ -34,5 +41,13 @@ public class GroundCellImpl implements GroundCell {
 
     @Override public void removeThing(Thing thing) {
         things.remove(thing);
+    }
+
+    @Override public int getRandomSeed() {
+        return randomSeed;
+    }
+
+    @Override public TextureRegion getTexture(TextureAtlas textureAtlas) {
+        return terrainType.getTexture(textureAtlas, randomSeed);
     }
 }

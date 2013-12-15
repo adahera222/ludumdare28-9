@@ -1,5 +1,7 @@
 package org.ludumdare28.ground;
 
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import org.ludumdare28.things.Thing;
 
 import java.util.Collection;
@@ -30,4 +32,8 @@ public interface GroundCell {
     void removeThing(Thing thing);
 
     void setTerrainType(TerrainType terrainType);
+
+    int getRandomSeed();
+
+    TextureRegion getTexture(TextureAtlas textureAtlas);
 }

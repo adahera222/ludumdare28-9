@@ -21,7 +21,7 @@ public class GroundTest {
 
     @Before
     public void setUp() throws Exception {
-        ground = new GroundImpl(10, 10);
+        ground = new GroundImpl(10, 10, 42);
         player = new Player("igor", 10);
         world = new WorldImpl(ground, player);
     }

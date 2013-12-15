@@ -2,8 +2,13 @@ package org.ludumdare28;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.FPSLogger;
-import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import org.flowutils.time.RealTime;
+import org.flowutils.time.Time;
+import org.ludumdare28.view.ScreenView;
+import org.ludumdare28.view.screens.Screen;
 import org.ludumdare28.world.World;
 
 /**
@@ -12,18 +17,34 @@ import org.ludumdare28.world.World;
 public class Game implements ApplicationListener {
     // Logging prefix
     public static final String LOG = Game.class.getSimpleName();
-    private final World world;
+
+    private final ScreenView screenView = new ScreenView();
+    private final int width;
+    private final int height;
+    private final String textureAtlasFile;
+
+    private Time time = new RealTime();
+
+    private TextureAtlas textureAtlas;
+    private OrthographicCamera camera;
+    private SpriteBatch spriteBatch;
 
     // Calculates the number of frames drawn per second
     private FPSLogger fpsLogger;
 
-    public Game(World world) {
-        this.world = world;
+    public Game(int width, int height, String textureAtlasFile) {
+        this.width = width;
+        this.height = height;
+        this.textureAtlasFile = textureAtlasFile;
     }
 
     @Override public void create() {
         Gdx.app.log(LOG, "Creating game");
         fpsLogger = new FPSLogger();
+
+        textureAtlas = new TextureAtlas(textureAtlasFile);
+        camera = new OrthographicCamera(width, height);
+        spriteBatch =  new SpriteBatch();
 
         // Create game view
     }
@@ -34,12 +55,33 @@ public class Game implements ApplicationListener {
     }
 
     @Override public void render() {
-        // the following code clears the screen with the given RGB color (green)
-        Gdx.gl.glClearColor( 0f, 1f, 0f, 1f );
-        Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT );
-
         // output the current FPS
-        fpsLogger.log();    }
+        fpsLogger.log();
+
+        // Update
+        time.nextStep();
+        screenView.update(time.getLastStepDurationSeconds(), time.getSecondsSinceStart());
+
+        // Render
+        doRender();
+    }
+
+    private void doRender() {
+        GLCommon gl = Gdx.gl;
+
+        // Clear the screen to Black
+        gl.glClearColor(0, 0, 0, 1);
+        gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+
+        camera.update();
+
+        spriteBatch.setProjectionMatrix(camera.combined);
+        spriteBatch.enableBlending();
+
+        spriteBatch.begin();
+        screenView.render(textureAtlas, spriteBatch);
+        spriteBatch.end();
+    }
 
     @Override public void pause() {
         Gdx.app.log(Game.LOG, "Pausing game" );
@@ -52,4 +94,8 @@ public class Game implements ApplicationListener {
     @Override public void dispose() {
         Gdx.app.log(Game.LOG, "Disposing game" );
     }
+
+    public Screen getCurrentScreen() {return screenView.getCurrentScreen();}
+
+    public void setCurrentScreen(Screen currentScreen) {screenView.setCurrentScreen(currentScreen);}
 }
