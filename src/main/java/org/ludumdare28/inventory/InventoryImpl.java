@@ -32,6 +32,7 @@ public class InventoryImpl implements Inventory {
             throw new IllegalArgumentException("inventory does not contain " + thingToRemove);
         }
         inventory.remove(thingToRemove);
+        if (selectedThing == thingToRemove) selectedThing = null;
     }
 
     @Override
