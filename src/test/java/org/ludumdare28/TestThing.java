@@ -9,7 +9,7 @@ import org.ludumdare28.inventory.Inventory;
  * Dummy thing used for unit testing
  */
 public class TestThing implements Thing {
-    @Override public Inventory getInventory() {
+    @Override public Inventory getInventoryThingIsIn() {
         // TODO: Implement
         return null;
     }
@@ -34,7 +34,7 @@ public class TestThing implements Thing {
 
     }
 
-    @Override public void setInventory(Inventory inventory) {
+    @Override public void setInventoryThingIsIn(Inventory inventory) {
         // TODO: Implement
 
     }

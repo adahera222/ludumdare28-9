@@ -13,7 +13,7 @@ public interface Thing {
     /**
      * @return the inventory that the thing is in, or null if it is not in an inventory.
      */
-    Inventory getInventory();
+    Inventory getInventoryThingIsIn();
 
     /**
      * @return the ground that the thing is on, or null if it is not on a ground.
@@ -39,7 +39,7 @@ public interface Thing {
      * @param inventory the inventory the thing is in, or null if it is not in an inventory.
      *                  If not null, should set ground to null.
      */
-    void setInventory(Inventory inventory);
+    void setInventoryThingIsIn(Inventory inventory);
 
     /**
      * @param ground the ground the thing is in, or null if it is not on a ground.
@@ -62,4 +62,7 @@ public interface Thing {
      */
     EdibleAspect getEdibleAspect();
 
+    boolean isStackable();
+
+    void delete();
 }
