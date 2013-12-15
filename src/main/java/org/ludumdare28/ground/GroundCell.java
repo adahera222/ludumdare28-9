@@ -36,4 +36,6 @@ public interface GroundCell {
     int getRandomSeed();
 
     TextureRegion getTexture(TextureAtlas textureAtlas);
+
+    void sortThingsByDistance();
 }

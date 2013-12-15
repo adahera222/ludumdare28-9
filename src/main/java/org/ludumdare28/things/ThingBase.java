@@ -20,6 +20,7 @@ public abstract class ThingBase implements Thing {
     private Ground ground;
     private Inventory inventoryThingIsIn;
     private EdibleAspect edibleAspect;
+    private Appearance appearance;
     private DrinkableAspect drinkableAspect;
     private Set<ThingListener> listeners = new HashSet<ThingListener>(4);
     private World world;
@@ -139,6 +140,14 @@ public abstract class ThingBase implements Thing {
     @Override
     public DrinkableAspect getDrinkableAspect() {
         return drinkableAspect;
+    }
+
+    @Override public Appearance getAppearance() {
+        return appearance;
+    }
+
+    @Override public void setAppearance(Appearance appearance) {
+        this.appearance = appearance;
     }
 
     public void setDrinkableAspect(DrinkableAspect drinkableAspect){

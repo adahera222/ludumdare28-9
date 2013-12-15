@@ -21,6 +21,8 @@ public interface World extends Updating {
 
     void addThing(Thing thing);
 
+    void addThing(Thing thing, double x, double y);
+
 
     List<Thing> getThings();
 }

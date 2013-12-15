@@ -3,9 +3,12 @@ package org.ludumdare28.ground.view;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import org.flowutils.Maths;
 import org.ludumdare28.View;
 import org.ludumdare28.ground.Ground;
 import org.ludumdare28.ground.GroundCell;
+import org.ludumdare28.things.Appearance;
+import org.ludumdare28.things.Thing;
 
 /**
  * Renders the ground.
@@ -57,13 +60,30 @@ public class GroundView implements View {
         final int startX = 0;
         final int endX = 10;
 
-        for (int y = startY; y < endY; y++) {
+        for (int y = endY-1; y >= startY; y--) {
             for (int x = startX; x < endX; x++) {
                 final GroundCell cell = ground.getCell(x, y);
-                final TextureRegion texture = cell.getTexture(textureAtlas);
-                float screenPosX = SCREEN_GRID_SIZE_X * x - SCREEN_GRID_BORDER_X;
-                float screenPosY = SCREEN_GRID_SIZE_Y * y - SCREEN_GRID_BORDER_Y;
-                spriteBatch.draw(texture, screenPosX, screenPosY, CELL_IMAGE_SIZE_X, CELL_IMAGE_SIZE_Y);
+                if (cell != null) {
+                    final TextureRegion texture = cell.getTexture(textureAtlas);
+                    float screenPosX = SCREEN_GRID_SIZE_X * x - SCREEN_GRID_BORDER_X;
+                    float screenPosY = SCREEN_GRID_SIZE_Y * y - SCREEN_GRID_BORDER_Y;
+
+                    // Draw cell
+                    spriteBatch.draw(texture, screenPosX, screenPosY, CELL_IMAGE_SIZE_X, CELL_IMAGE_SIZE_Y);
+
+                    // Sort items in cell in depth order
+                    cell.sortThingsByDistance();
+
+                    // Draw items in cell
+                    for (Thing thing : cell.getThings()) {
+                        final Appearance appearance = thing.getAppearance();
+                        if (appearance != null) {
+                            float thingX = (float) Maths.map(thing.getX(), x, x+1, screenPosX, screenPosX + SCREEN_GRID_SIZE_X);
+                            float thingY = (float) Maths.map(thing.getY(), y, y+1, screenPosY, screenPosY + SCREEN_GRID_SIZE_Y);
+                            appearance.render(textureAtlas, spriteBatch, thingX, thingY);
+                        }
+                    }
+                }
             }
         }
 

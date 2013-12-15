@@ -30,7 +30,7 @@ public class WorldImpl implements World {
         this.ground = ground;
         this.player = player;
 
-        addThing(player);
+        addThing(player, 10, 10);
     }
 
     public Ground getGround() {
@@ -63,6 +63,12 @@ public class WorldImpl implements World {
         else {
             thingsToAdd.add(thing);
         }
+    }
+
+    @Override public void addThing(Thing thing, double x, double y) {
+        addThing(thing);
+        thing.setPos(x, y);
+        ground.addThing(thing);
     }
 
     @Override public void update(double timeSinceLastCall, double totalGameTime) {

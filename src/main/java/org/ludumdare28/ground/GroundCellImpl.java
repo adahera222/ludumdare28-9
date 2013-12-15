@@ -4,14 +4,19 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import org.ludumdare28.things.Thing;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 /**
  * An area on the ground.
  */
 public class GroundCellImpl implements GroundCell {
+
+    private static final Comparator<Thing> DEPTH_COMPARATOR = new Comparator<Thing>() {
+        @Override public int compare(Thing o1, Thing o2) {
+            return Double.compare(o1.getY(), o2.getY());
+        }
+    };
+
     private List<Thing> things = new ArrayList<Thing>(4);
     private TerrainType terrainType;
     private final int randomSeed;
@@ -49,5 +54,9 @@ public class GroundCellImpl implements GroundCell {
 
     @Override public TextureRegion getTexture(TextureAtlas textureAtlas) {
         return terrainType.getTexture(textureAtlas, randomSeed);
+    }
+
+    @Override public void sortThingsByDistance() {
+        Collections.sort(things, DEPTH_COMPARATOR);
     }
 }

@@ -77,9 +77,14 @@ public interface Thing extends Updating {
 
     DrinkableAspect getDrinkableAspect();
 
+    Appearance getAppearance();
+
+
     boolean isStackable();
 
     void delete();
 
     boolean isPickable();
+
+    void setAppearance(Appearance appearance);
 }

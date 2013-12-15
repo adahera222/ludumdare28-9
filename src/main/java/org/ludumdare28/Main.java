@@ -4,9 +4,12 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import org.ludumdare28.ground.Ground;
 import org.ludumdare28.ground.GroundImpl;
 import org.ludumdare28.things.Player;
+import org.ludumdare28.things.Stone;
 import org.ludumdare28.view.screens.WorldScreen;
 import org.ludumdare28.world.World;
 import org.ludumdare28.world.WorldImpl;
+
+import java.util.Random;
 
 /**
  * Main class for the game.
@@ -14,6 +17,8 @@ import org.ludumdare28.world.WorldImpl;
 public class Main {
 
     private static final String TITLE = "Keep On Living";
+    private static final int WORLD_SIZE_X = 5;
+    private static final int WORLD_SIZE_Y = 5;
 
     public static void main(String[] args) {
 
@@ -24,13 +29,22 @@ public class Main {
         final String textureAtlasFile = "assets/texturepack.pack";
 
         // Create ground
-        Ground ground = new GroundImpl(100, 100, 42);
+        Ground ground = new GroundImpl(WORLD_SIZE_X, WORLD_SIZE_Y, 42);
 
         // Create player
         Player player = new Player("Player One", 10);
 
         // Create game world
         World world = new WorldImpl(ground, player);
+
+        // Add things
+        Random random = new Random(42);
+        for (int i = 0; i < 100; i++) {
+            world.addThing(new Stone(random),
+                           random.nextDouble() * WORLD_SIZE_X,
+                           random.nextDouble() * WORLD_SIZE_Y);
+        }
+
 
         // Create view
         final WorldScreen worldScreen = new WorldScreen(world);
