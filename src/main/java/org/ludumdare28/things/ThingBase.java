@@ -8,8 +8,11 @@ import org.ludumdare28.things.aspects.EdibleAspect;
  *
  */
 public abstract class ThingBase implements Thing {
+    private double posX;
+    private double posY;
 
     private EdibleAspect edibleAspect = null;
+
 
     @Override public Inventory getInventory() {
         // TODO: Implement
@@ -22,17 +25,16 @@ public abstract class ThingBase implements Thing {
     }
 
     @Override public double getX() {
-        // TODO: Implement
-        return 0;
+        return posX;
     }
 
     @Override public double getY() {
-        // TODO: Implement
-        return 0;
+        return posY;
     }
 
     @Override public void setPos(double x, double y) {
-        // TODO: Implement
+        posX = x;
+        posY = y;
 
     }
 
