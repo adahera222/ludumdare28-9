@@ -47,7 +47,7 @@ public class Player  extends ThingBase {
         inventory = new InventoryImpl(maxInventorySlots);
     }
 
-    public void changeHunger(int hungerAmount){
+    public void changeHunger(double hungerAmount){
         hunger += hungerAmount;
         if (hunger < 0) hunger = 0;
         if (hunger >= maxStat) alive = false;
@@ -56,7 +56,7 @@ public class Player  extends ThingBase {
 
     }
 
-    public void changeTiredness(int tirednessAmount){
+    public void changeTiredness(double tirednessAmount){
         tiredness += tirednessAmount;
         if (tiredness < 0) tiredness = 0;
         if (tiredness >= maxStat) awake = false;
@@ -65,7 +65,7 @@ public class Player  extends ThingBase {
 
     }
 
-    public void changeThirst(int thirstAmount){
+    public void changeThirst(double thirstAmount){
         thirst += thirstAmount;
         if (thirst < 0) thirst = 0;
         if (thirst >= maxStat) alive = false;
@@ -74,7 +74,7 @@ public class Player  extends ThingBase {
 
     }
 
-    public void changeDamage(int damageAmount){
+    public void changeDamage(double damageAmount){
         damage += damageAmount;
         if (damage < 0) damage = 0;
         if (damage >= maxStat) alive = false;
