@@ -85,12 +85,14 @@ public abstract class ThingBase implements Thing {
         }
     }
 
-    @Override public void setInventoryThingIsIn(Inventory inventoryThingIsIn) {
+    @Override public void moveToInventory(Inventory inventoryThingIsIn) {
         if (this.inventoryThingIsIn != inventoryThingIsIn) {
             this.inventoryThingIsIn = inventoryThingIsIn;
 
             if (inventoryThingIsIn != null) {
+                if (ground != null) ground.removeThing(this);
                 ground = null;
+                inventoryThingIsIn.addToInventory(this);
 
                 // Notify listeners about the move
                 for (ThingListener listener : listeners) {
@@ -100,12 +102,14 @@ public abstract class ThingBase implements Thing {
         }
     }
 
-    @Override public void setGround(Ground ground) {
+    @Override public void moveToGround(Ground ground) {
         if (this.ground != ground) {
             this.ground = ground;
 
             if (ground != null) {
+                if (inventoryThingIsIn != null) inventoryThingIsIn.removeFromInventory(this);
                 inventoryThingIsIn = null;
+                ground.addThing(this);
 
                 // Notify listeners about the move
                 for (ThingListener listener : listeners) {

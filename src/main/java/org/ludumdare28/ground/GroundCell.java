@@ -29,4 +29,5 @@ public interface GroundCell {
      */
     void removeThing(Thing thing);
 
+    void setTerrainType(TerrainType terrainType);
 }

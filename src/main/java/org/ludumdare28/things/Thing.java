@@ -52,13 +52,13 @@ public interface Thing extends Updating {
      * @param inventory the inventory the thing is in, or null if it is not in an inventory.
      *                  If not null, should set ground to null.
      */
-    void setInventoryThingIsIn(Inventory inventory);
+    void moveToInventory(Inventory inventory);
 
     /**
      * @param ground the ground the thing is in, or null if it is not on a ground.
      *                  If not null, should set inventory to null.
      */
-    void setGround(Ground ground);
+    void moveToGround(Ground ground);
 
     /**
      * @param listener listener that is notified when the thing moves or does something else.

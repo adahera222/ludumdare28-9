@@ -11,4 +11,5 @@ import org.ludumdare28.things.aspects.EdibleAspect;
  * Dummy thing used for unit testing
  */
 public class TestThing extends ThingBase {
+
 }

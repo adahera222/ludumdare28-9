@@ -28,11 +28,6 @@ public class GroundImpl implements Ground {
                 }
             }
         }
-
-        @Override public void onPlacedInInventory(Thing thing, Inventory inventory) {
-            // Remove from ground
-            GroundImpl.this.removeThing(thing);
-        }
     };
 
     public GroundImpl(int sizeX, int sizeY) {
@@ -62,7 +57,7 @@ public class GroundImpl implements Ground {
 
     @Override public void addThing(Thing thing) {
         // Set the ground to this if not already set
-        thing.setGround(this);
+        thing.moveToGround(this);
 
         // Listen to the movements of the thing and update the ground cell it is in
         thing.addThingListener(thingListener);
@@ -75,11 +70,17 @@ public class GroundImpl implements Ground {
     }
 
     @Override public void removeThing(Thing thing) {
+        // Remove from ground cell
+        final GroundCell cell = getCell(thing.getX(), thing.getY());
+        if (cell != null) {
+            cell.removeThing(thing);
+        }
+
         // Stop listening to movements
         thing.removeThingListener(thingListener);
 
         // Set the ground to null if not already set
-        thing.setGround(null);
+        thing.moveToGround(null);
     }
 
     private int index(double x, double y) {

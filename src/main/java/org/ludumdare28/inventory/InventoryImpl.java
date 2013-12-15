@@ -20,10 +20,13 @@ public class InventoryImpl implements Inventory {
 
     @Override
     public void addToInventory(Thing thingToAdd) {
-        if (inventory.size() >= maxSlots){
-            throw new IllegalArgumentException("no space in inventory");
+        if (!inventory.contains(thingToAdd)) {
+            if (inventory.size() >= maxSlots){
+                throw new IllegalArgumentException("no space in inventory");
+            }
+            inventory.add(thingToAdd);
+            thingToAdd.moveToInventory(this);
         }
-        inventory.add(thingToAdd);
     }
 
     @Override

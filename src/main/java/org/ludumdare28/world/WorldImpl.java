@@ -10,7 +10,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static org.flowutils.Check.*;
 import static org.flowutils.Check.notNull;
 
 /**
@@ -87,13 +86,17 @@ public class WorldImpl implements World {
 
     private void doRemoveThing(Thing thing) {
         thing.setWorld(null);
-        thing.setGround(null);
-        thing.setInventoryThingIsIn(null);
+        thing.moveToGround(null);
+        thing.moveToInventory(null);
         things.remove(thing);
     }
 
     private void doAddThing(Thing thing) {
         thing.setWorld(this);
         things.add(thing);
+    }
+
+    @Override public List<Thing> getThings() {
+        return things;
     }
 }

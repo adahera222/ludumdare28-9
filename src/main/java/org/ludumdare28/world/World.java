@@ -6,6 +6,8 @@ import org.ludumdare28.ground.Ground;
 import org.ludumdare28.things.Thing;
 import org.ludumdare28.things.ThingBase;
 
+import java.util.List;
+
 /**
  * Keeps track of all things.
  */
@@ -18,4 +20,7 @@ public interface World extends Updating {
     void deleteThing(Thing thing);
 
     void addThing(Thing thing);
+
+
+    List<Thing> getThings();
 }

@@ -114,4 +114,11 @@ public class Player  extends ThingBase {
     public int getMaxStat() {
         return maxStat;
     }
+
+    /**
+     * @return inventory of the player.
+     */
+    public Inventory getInventory() {
+        return inventory;
+    }
 }
