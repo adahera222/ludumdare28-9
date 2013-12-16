@@ -114,7 +114,7 @@ public class WorldScreen implements Screen {
         Table attributeTable = new Table(skin);
         // Create slider indicators for attributes
         for (PlayerAttribute attribute : PlayerAttribute.values()) {
-            createSlider(attributeTable, skin, attribute);
+            createAttributeView(attributeTable, skin, attribute, 50, 100);
         }
         table.add(attributeTable);
 
@@ -145,15 +145,21 @@ public class WorldScreen implements Screen {
         return stage;
     }
 
-    private Slider createSlider(Table table, Skin skin, final PlayerAttribute attribute) {
+    private void createAttributeView(Table table, Skin skin, final PlayerAttribute attribute, float labelWidth, float sliderWidth) {
+        Label label = new Label(attribute.getName(), skin);
+        label.setWidth(labelWidth);
+        table.add(label);
+
         final Slider slider = new Slider(0, 100, 1, false, skin);
         slider.setColor(attribute.getColor());
         slider.setAnimateDuration(3);
         slider.setTouchable(Touchable.disabled);
         slider.setAnimateInterpolation(Interpolation.sine);
+        slider.setWidth(sliderWidth);
         table.add(slider);
+
         table.row();
+
         attributeSliders.put(attribute, slider);
-        return slider;
     }
 }

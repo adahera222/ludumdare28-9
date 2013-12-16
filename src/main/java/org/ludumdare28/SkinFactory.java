@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -42,6 +43,12 @@ public class SkinFactory {
         sliderStyle.knobAfter = skin.newDrawable("white", Color.GRAY);
         sliderStyle.knobBefore = skin.newDrawable("white", Color.WHITE);
         skin.add("default-horizontal", sliderStyle);
+
+        Label.LabelStyle labelStyle = new Label.LabelStyle();
+        labelStyle.background = skin.newDrawable("white", Color.BLACK);
+        labelStyle.font       = skin.getFont("default");
+        labelStyle.fontColor  = Color.WHITE;
+        skin.add("default", labelStyle);
 
         return skin;
     }
