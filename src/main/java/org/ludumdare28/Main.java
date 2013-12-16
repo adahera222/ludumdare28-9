@@ -89,7 +89,7 @@ public class Main {
 
 
         //Spring
-        world.addThing(new Spring(),1.2, 1.2);
+        world.addThing(new Spring(),WORLD_SIZE_X/4, WORLD_SIZE_Y/2);
 
         return world;
     }
