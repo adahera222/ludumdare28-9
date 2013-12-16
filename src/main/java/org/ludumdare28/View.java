@@ -1,5 +1,6 @@
 package org.ludumdare28;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
@@ -8,6 +9,6 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
  */
 public interface View extends Updating {
 
-    void render(TextureAtlas textureAtlas, SpriteBatch spriteBatch);
+    void render(TextureAtlas textureAtlas, SpriteBatch spriteBatch, OrthographicCamera camera);
 
 }

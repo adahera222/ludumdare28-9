@@ -9,8 +9,14 @@ import org.ludumdare28.utils.MultiPic;
  */
 public enum Pic {
 
-    STONE("stone1", "stone2", "stone3", "stone4", "stone5");
-    //BERRYBUSH("berrybush1", "berrybush2");
+    STONE("stone1", "stone2", "stone3", "stone4", "stone5"),
+    BUSH1("bush1"),
+    BUSH1HALF("bush1half"),
+    BUSH1FULL("bush1full"),
+    BUSH2("bush2"),
+    BUSH2HALF("bush2half"),
+    BUSH2FULL("bush2full"),
+    ;
 
     private final MultiPic multiPic;
 

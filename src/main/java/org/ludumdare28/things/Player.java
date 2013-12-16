@@ -1,15 +1,20 @@
 package org.ludumdare28.things;
 
+import org.flowutils.Maths;
+import org.ludumdare28.input.Controllable;
+import org.ludumdare28.input.ControllableImpl;
+import org.ludumdare28.input.InputAction;
 import org.ludumdare28.inventory.Inventory;
 import org.ludumdare28.inventory.InventoryImpl;
+import org.ludumdare28.things.aspects.EdibleAspect;
 
 /**
  * Author: Shiera
  */
 public class Player  extends ThingBase {
+    private static final double MAX_EATING_DISTANCE = 1.2;
     private String name;
     private double baseSpeed;
-    private double speed;
     private Inventory inventory;
     private double hunger;
     private double thirst;
@@ -22,18 +27,27 @@ public class Player  extends ThingBase {
     private double damageSpeedModifier;
     private boolean alive;
     private boolean awake;
-    /*
+
+    private Thing target;
+
+    private static double MAX_WORLD_SPEED_SQUARES_PER_SECOND = 2;
+    private static double HUNGER_INCREASE_PER_SECOND = 0.3;
+    private static double THIRST_INCREASE_PER_SECOND = 1;
+    private static double TIREDNESS_INCREASE_PER_SECOND = 0.05;
+
+    private ControllableImpl controllable = new ControllableImpl();
+
+    /**
     -the player have a name that can be given in the beginning of the game.
     -the player have a speed that tells how long time it takes to do different tasks, the speed
      consist of the players basespeed that can be lowered because of hunger, thirst and need to sleep
      -The player have an inventory wher all his things are
      - maxstat tells how big hunger, thirst and need to sleep can be (ex if hunger goes ower maxStat you die in hunger)
-     */
-
+     **/
     public Player(String name, int maxInventorySlots) {
         this.name = name;
         this.baseSpeed = maxStat;
-        speed = baseSpeed;
+        //speed = baseSpeed;
         hunger = 0;
         thirst = 0;
         tiredness = 0;
@@ -45,6 +59,42 @@ public class Player  extends ThingBase {
         damageSpeedModifier = 0;
         tirednessSpeedModifier = 0;
         inventory = new InventoryImpl(maxInventorySlots);
+
+        controllable.addListener(new Controllable() {
+            @Override public void begin(InputAction action) {
+                if (action == InputAction.USE) {
+                    // Start eating
+                    startEating();
+                }
+            }
+
+            @Override public void end(InputAction action) {
+                if (action == InputAction.USE) {
+                    // Stop eating
+                }
+            }
+        });
+    }
+
+    private void startEating() {
+        // TODO: Always show the closest target in the UI
+        // Find target
+        final Thing closestThing = getClosestThing(MAX_EATING_DISTANCE);
+        if (closestThing instanceof Harvestable) {
+            Harvestable harvestable = (Harvestable) closestThing;
+            final Thing harvest = harvestable.harvest();
+            if (harvest != null) {
+                final EdibleAspect edibleAspect = harvest.getEdibleAspect();
+                if (edibleAspect != null) {
+                    edibleAspect.eat(this);
+
+                    System.out.println("Player.startEating");
+                    System.out.println("edibleAspect = " + edibleAspect);
+
+                    // TODO: play eat sound
+                }
+            }
+        }
     }
 
     public void changeHunger(double hungerAmount){
@@ -120,5 +170,44 @@ public class Player  extends ThingBase {
      */
     public Inventory getInventory() {
         return inventory;
+    }
+
+
+    @Override public void update(double lastFrameDurationSeconds, double totalGameTime) {
+        /*
+        double x = Math.cos(totalGameTime / 4) * 6 + 7;
+        double y = Math.sin(totalGameTime / 4) * 6 + 5;
+        setPos(x,y);
+        */
+
+        // Increase properties
+        changeHunger(HUNGER_INCREASE_PER_SECOND * lastFrameDurationSeconds);
+        changeThirst(THIRST_INCREASE_PER_SECOND * lastFrameDurationSeconds);
+        changeTiredness(TIREDNESS_INCREASE_PER_SECOND * lastFrameDurationSeconds);
+
+        // Move
+        final double speed = getSpeed();
+        double delta = Maths.mapAndClamp(speed, 0, 100, 0, MAX_WORLD_SPEED_SQUARES_PER_SECOND) * lastFrameDurationSeconds;
+        double dx = 0;
+        double dy = 0;
+        if (controllable.isActive(InputAction.LEFT))  dx -= delta;
+        if (controllable.isActive(InputAction.RIGHT)) dx += delta;
+        if (controllable.isActive(InputAction.UP))    dy += delta;
+        if (controllable.isActive(InputAction.DOWN))  dy -= delta;
+
+        // Diagonal movement should be at the same speed as normal movement.
+        if (dx != 0 && dy != 0) {
+            dx /= Math.sqrt(2);
+            dy /= Math.sqrt(2);
+        }
+
+        setPos(getX() + dx,
+               getY() + dy);
+
+        // TODO: Make sure player can't walk on water
+    }
+
+    public Controllable getControllable() {
+        return controllable;
     }
 }

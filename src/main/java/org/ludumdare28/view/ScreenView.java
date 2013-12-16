@@ -1,5 +1,6 @@
 package org.ludumdare28.view;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import org.ludumdare28.View;
@@ -37,7 +38,7 @@ public class ScreenView implements View {
         if (currentScreen != null) currentScreen.update(timeSinceLastCall, totalGameTime);
     }
 
-    @Override public void render(TextureAtlas textureAtlas, SpriteBatch spriteBatch) {
-        if (currentScreen != null) currentScreen.render(textureAtlas, spriteBatch);
+    @Override public void render(TextureAtlas textureAtlas, SpriteBatch spriteBatch, OrthographicCamera camera) {
+        if (currentScreen != null) currentScreen.render(textureAtlas, spriteBatch, camera);
     }
 }

@@ -20,7 +20,7 @@ public class BerryEatingTest {
         Player testplayer  = new Player("testplayer", 1);
         HungerBerry testberry = new HungerBerry();
         // eat berry
-        testberry.getEdibleAspect().eat(testplayer, testberry);
+        testberry.getEdibleAspect().eat(testplayer);
         assertEquals("hunger should increase when eating hungerberry", 1, testplayer.getHunger(), 0.001);
     }
 
@@ -31,7 +31,7 @@ public class BerryEatingTest {
         FoodBerry testberry = new FoodBerry();
         testplayer.changeHunger(10);
         // eat berry
-        testberry.getEdibleAspect().eat(testplayer, testberry);
+        testberry.getEdibleAspect().eat(testplayer);
         assertEquals("hunger should decrease when eating foodberry", 9, testplayer.getHunger(), 0.001);
     }
 }

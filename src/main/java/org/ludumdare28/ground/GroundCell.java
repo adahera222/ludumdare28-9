@@ -38,4 +38,6 @@ public interface GroundCell {
     TextureRegion getTexture(TextureAtlas textureAtlas);
 
     void sortThingsByDistance();
+
+    Thing getClosestThing(Thing reference, double maxDistance);
 }

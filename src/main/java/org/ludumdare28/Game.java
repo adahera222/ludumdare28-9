@@ -2,11 +2,13 @@ package org.ludumdare28;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import org.flowutils.time.RealTime;
 import org.flowutils.time.Time;
+import org.ludumdare28.input.InputHandler;
 import org.ludumdare28.view.ScreenView;
 import org.ludumdare28.view.screens.Screen;
 import org.ludumdare28.world.World;
@@ -18,6 +20,7 @@ public class Game implements ApplicationListener {
     // Logging prefix
     public static final String LOG = Game.class.getSimpleName();
 
+    private final InputHandler inputHandler = new InputHandler();
     private final ScreenView screenView = new ScreenView();
     private final int width;
     private final int height;
@@ -46,12 +49,13 @@ public class Game implements ApplicationListener {
         camera = new OrthographicCamera(width, height);
         spriteBatch =  new SpriteBatch();
 
-        // Create game view
+        // Handle input
+        Gdx.input.setInputProcessor(inputHandler);
     }
 
     @Override public void resize(int width, int height) {
         Gdx.app.log(LOG, "Resizing " + width + ", " + height);
-
+        //camera.setToOrtho(false, width, height);
     }
 
     @Override public void render() {
@@ -59,11 +63,15 @@ public class Game implements ApplicationListener {
         fpsLogger.log();
 
         // Update
-        time.nextStep();
-        screenView.update(time.getLastStepDurationSeconds(), time.getSecondsSinceStart());
+        doUpdate();
 
         // Render
         doRender();
+    }
+
+    private void doUpdate() {
+        time.nextStep();
+        screenView.update(time.getLastStepDurationSeconds(), time.getSecondsSinceStart());
     }
 
     private void doRender() {
@@ -79,7 +87,7 @@ public class Game implements ApplicationListener {
         spriteBatch.enableBlending();
 
         spriteBatch.begin();
-        screenView.render(textureAtlas, spriteBatch);
+        screenView.render(textureAtlas, spriteBatch, camera);
         spriteBatch.end();
     }
 
@@ -98,4 +106,8 @@ public class Game implements ApplicationListener {
     public Screen getCurrentScreen() {return screenView.getCurrentScreen();}
 
     public void setCurrentScreen(Screen currentScreen) {screenView.setCurrentScreen(currentScreen);}
+
+    public InputHandler getInputHandler() {
+        return inputHandler;
+    }
 }

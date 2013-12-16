@@ -59,4 +59,31 @@ public class GroundCellImpl implements GroundCell {
     @Override public void sortThingsByDistance() {
         Collections.sort(things, DEPTH_COMPARATOR);
     }
+
+    @Override public Thing getClosestThing(Thing reference, double maxDistance) {
+        return getClosestThingFromList(reference, things, maxDistance);
+    }
+
+    /**
+     * @param reference
+     * @param things
+     * @return the closest thing to the reference thing from a list of things.
+     */
+    public static Thing getClosestThingFromList(Thing reference, final List<Thing> things, double maxDistance) {
+        double maxDistanceSquared = maxDistance * maxDistance;
+        double closestDistanceSquared = Double.POSITIVE_INFINITY;
+        Thing closestThing = null;
+
+        for (Thing thing : things) {
+            if (thing != null && thing != reference) {
+                double distanceSquared = thing.getDistanceSquared(reference);
+                if (distanceSquared < closestDistanceSquared && distanceSquared <= maxDistanceSquared) {
+                    closestDistanceSquared = distanceSquared;
+                    closestThing = thing;
+                }
+            }
+        }
+
+        return closestThing;
+    }
 }

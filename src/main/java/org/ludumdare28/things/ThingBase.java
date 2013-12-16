@@ -27,11 +27,11 @@ public abstract class ThingBase implements Thing {
 
     protected ThingBase(double posX ,double posY , EdibleAspect edibleAspect, DrinkableAspect drinkableAspect) {
         this.posX = posX;
-        this.edibleAspect = edibleAspect;
         this.drinkableAspect = drinkableAspect;
         this.posY = posY;
         this.inventoryThingIsIn = null;
 
+        setEdibleAspect(edibleAspect);
     }
 
     protected ThingBase(double posX, double posY) {
@@ -135,6 +135,8 @@ public abstract class ThingBase implements Thing {
 
     public void setEdibleAspect(EdibleAspect edibleAspect) {
         this.edibleAspect = edibleAspect;
+
+        if (edibleAspect != null) edibleAspect.setHostThing(this);
     }
 
     @Override
@@ -148,6 +150,19 @@ public abstract class ThingBase implements Thing {
 
     @Override public void setAppearance(Appearance appearance) {
         this.appearance = appearance;
+    }
+
+    @Override public double getDistanceSquared(Thing other) {
+        if (ground == null) throw new IllegalStateException("Not on ground");
+        if (ground != other.getGround()) throw new IllegalArgumentException("Not on same ground");
+
+        double dx = getX() - other.getX();
+        double dy = getY() - other.getY();
+        return dx*dx + dy*dy;
+    }
+
+    @Override public double getDistance(Thing other) {
+        return Math.sqrt(getDistanceSquared(other));
     }
 
     public void setDrinkableAspect(DrinkableAspect drinkableAspect){
@@ -166,7 +181,11 @@ public abstract class ThingBase implements Thing {
         }
     }
 
-    @Override public void update(double timeSinceLastCall, double totalGameTime) {
+    @Override public Thing getClosestThing(double maxDistance) {
+        return getWorld().getGround().getClosestThing(this, maxDistance);
+    }
+
+    @Override public void update(double lastFrameDurationSeconds, double totalGameTime) {
     }
 
     @Override

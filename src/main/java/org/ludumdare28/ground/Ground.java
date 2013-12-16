@@ -1,5 +1,6 @@
 package org.ludumdare28.ground;
 
+import org.ludumdare28.things.Player;
 import org.ludumdare28.things.Thing;
 
 /**
@@ -27,4 +28,12 @@ public interface Ground {
     void removeThing(Thing thing);
 
     GroundCell getCell(double x, double y);
+
+    /**
+     * @param reference reference thing to get something close to
+     * @param maxDistance maximum distance to the thing to get.
+     * @return the thing closest to the reference thing, within the specified max distance (in grid cells),
+     * or null if there is nothing close.
+     */
+    Thing getClosestThing(Thing reference, double maxDistance);
 }

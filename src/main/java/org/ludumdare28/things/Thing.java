@@ -87,4 +87,23 @@ public interface Thing extends Updating {
     boolean isPickable();
 
     void setAppearance(Appearance appearance);
+
+    /**
+     * @param other thing to get squared distance to.
+     * @return square of the distance to the specified thing.  Throws exception if the things are on different grounds.
+     */
+    double getDistanceSquared(Thing other);
+
+    /**
+     * @param other thing to get distance to.
+     * @return distance to the specified thing.  Throws exception if the things are on different grounds.
+     */
+    double getDistance(Thing other);
+
+    /**
+     * @param maxDistance maximum distance to search within, specified as map squares.
+     * @return the closest other thing to this thing, within the specified max distance, or null if there is nothing close
+     * (or if this thing is in an inventory).
+     */
+    Thing getClosestThing(double maxDistance);
 }
