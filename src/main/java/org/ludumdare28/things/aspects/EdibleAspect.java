@@ -24,7 +24,7 @@ public class EdibleAspect {
      * @param player creature that ate the thing, can be modified with any effects from eating it.
      */
     public void eat(Player player) {
-        player.changeDamage(poisonChange);
+        player.changePoison(poisonChange);
         player.changeHunger(hungerChange);
         player.changeTiredness(tirednessChange);
         hostThing.delete();

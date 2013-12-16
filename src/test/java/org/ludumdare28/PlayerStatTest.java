@@ -25,9 +25,9 @@ public class PlayerStatTest {
     /**tests that the right stats increases right */
     public void statsChangesCorrectly1() throws Exception {
         Player testplayer  = new Player("testplayer", 1);
-        testplayer.changeDamage(10);
+        testplayer.changePoison(10);
         assertEquals("damage is not changing correctly", 10, testplayer.getDamage(), 0.001);
-        testplayer.changeDamage(10);
+        testplayer.changePoison(10);
         testplayer.changeHunger(10);
         assertEquals("hunger is not changing correctly", 10, testplayer.getHunger(), 0.001);
         testplayer.changeHunger(10);
@@ -42,8 +42,8 @@ public class PlayerStatTest {
     /**Tests that stat decreasing works */
     public void statsChangesCorrectly2() throws Exception {
         Player testplayer  = new Player("testplayer", 1);
-        testplayer.changeDamage(1);
-        testplayer.changeDamage(-15);
+        testplayer.changePoison(1);
+        testplayer.changePoison(-15);
         assertEquals("damage is not changing correctly", 0, testplayer.getDamage(), 0.001);
         testplayer.changeHunger(1);
         testplayer.changeHunger(-15);
@@ -59,7 +59,7 @@ public class PlayerStatTest {
     @Test
     public void testsPlayerDiesFromDamage() throws Exception {
         Player testplayer  = new Player("testplayer", 1);
-        testplayer.changeDamage(testplayer.getMaxStat());
+        testplayer.changePoison(testplayer.getMaxStat());
         assertEquals("player should have died", false, testplayer.isAlive());
     }
 

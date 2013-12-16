@@ -172,7 +172,7 @@ public class Player  extends ThingBase {
 
     }
 
-    public void changeDamage(double damageAmount){
+    public void changePoison(double damageAmount){
         if (damageAmount != 0) {
             double oldValue = damage;
             damage += damageAmount;

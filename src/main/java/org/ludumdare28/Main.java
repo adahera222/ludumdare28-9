@@ -11,6 +11,7 @@ import org.ludumdare28.things.ImageAppearance;
 import org.ludumdare28.things.player.Player;
 import org.ludumdare28.things.misc.Stone;
 import org.ludumdare28.things.berry.*;
+import org.ludumdare28.things.snake.Snake;
 import org.ludumdare28.things.spring.Spring;
 import org.ludumdare28.view.screens.WorldScreen;
 import org.ludumdare28.world.World;
@@ -91,6 +92,10 @@ public class Main {
         //Spring
         world.addThing(new Spring(),WORLD_SIZE_X/4, WORLD_SIZE_Y/2);
 
+        //Snake
+        addSnakes(world, 100, random);
+
+
         return world;
     }
 
@@ -104,6 +109,20 @@ public class Main {
             world.addThing(new Bush(type, berryColor, bushColor, appearanceSeed),
                            random.nextDouble() * WORLD_SIZE_X,
                            random.nextDouble() * WORLD_SIZE_Y);
+        }
+    }
+
+    private static void addSnakes(World world, final int numberOfSnakes, Random random) {
+        final int appearanceSeed = random.nextInt();
+
+        //TODO: snakes whit different color
+        Color snakeColor = randomBrightColor(random);
+
+
+        for (int i = 0; i < numberOfSnakes; i++) {
+            world.addThing(new Snake(),
+                    random.nextDouble() * WORLD_SIZE_X,
+                    random.nextDouble() * WORLD_SIZE_Y);
         }
     }
 
