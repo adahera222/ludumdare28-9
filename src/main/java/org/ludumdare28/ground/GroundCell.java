@@ -40,4 +40,8 @@ public interface GroundCell {
     void sortThingsByDistance();
 
     Thing getClosestThing(Thing reference, double maxDistance);
+
+    double getAltitude();
+
+    void setAltitude(double altitude);
 }

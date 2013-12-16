@@ -19,6 +19,7 @@ public class GroundCellImpl implements GroundCell {
 
     private List<Thing> things = new ArrayList<Thing>(4);
     private TerrainType terrainType;
+    private double altitude;
     private final int randomSeed;
 
     public GroundCellImpl(TerrainType terrainType, int randomSeed) {
@@ -85,5 +86,13 @@ public class GroundCellImpl implements GroundCell {
         }
 
         return closestThing;
+    }
+
+    @Override public double getAltitude() {
+        return altitude;
+    }
+
+    @Override public void setAltitude(double altitude) {
+        this.altitude = altitude;
     }
 }

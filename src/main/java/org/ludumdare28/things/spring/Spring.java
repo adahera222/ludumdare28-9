@@ -14,6 +14,8 @@ public class Spring extends ThingBase {
         super(new DrinkableAspect(Integer.MAX_VALUE));
 
         setAppearance(new SpringAppearance());
+
+        setName("Spring");
     }
 
 }

@@ -25,6 +25,7 @@ public abstract class ThingBase implements Thing {
     private DrinkableAspect drinkableAspect;
     private Set<ThingListener> listeners = new HashSet<ThingListener>(4);
     private World world;
+    private String name;
 
     protected ThingBase(double posX ,double posY , EdibleAspect edibleAspect, DrinkableAspect drinkableAspect) {
         this.posX = posX;
@@ -39,8 +40,15 @@ public abstract class ThingBase implements Thing {
        this(posX, posY, null, null);
     }
 
+
+
     protected ThingBase() {
         this(0,0,null, null);
+    }
+
+    protected ThingBase(String name) {
+        this(0,0,null, null);
+        this.name = name;
     }
 
     protected ThingBase(EdibleAspect edibleAspect) {
@@ -203,5 +211,13 @@ public abstract class ThingBase implements Thing {
     @Override
     public boolean isPickable() {
         return false;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

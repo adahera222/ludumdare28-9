@@ -9,7 +9,12 @@ import org.ludumdare28.utils.MultiPic;
  */
 public enum TerrainType {
 
+    DEEP_WATER("deepwater1", "deepwater2"),
     SAND("sand1", "sand2", "sand3");
+/*
+    WATER("water1", "water2");
+    WATER_SHORE("watershore1", "watershore2");
+     */
 
     private final MultiPic multiPic;
 

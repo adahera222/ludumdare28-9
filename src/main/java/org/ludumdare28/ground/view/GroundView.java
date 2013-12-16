@@ -75,6 +75,7 @@ public class GroundView implements View {
         final int startY = (int) (cameraCenterY - screenSizeGridsY/2 - 1);
         final int endY   = (int) (cameraCenterY + screenSizeGridsY/2 + 1);
 
+        // Draw all terrain
         for (int y = endY-1; y >= startY; y--) {
             for (int x = startX; x < endX; x++) {
                 final GroundCell cell = ground.getCell(x, y);
@@ -85,8 +86,21 @@ public class GroundView implements View {
                     float screenPosX = SCREEN_GRID_SIZE_X * x - SCREEN_GRID_BORDER_X + xOffs;
                     float screenPosY = SCREEN_GRID_SIZE_Y * y - SCREEN_GRID_BORDER_Y + yOffs;
 
-                    // Draw cell
+                    // Draw terrain
                     spriteBatch.draw(texture, screenPosX, screenPosY, CELL_IMAGE_SIZE_X, CELL_IMAGE_SIZE_Y);
+                }
+            }
+        }
+
+        // Draw all things
+        for (int y = endY-1; y >= startY; y--) {
+            for (int x = startX; x < endX; x++) {
+                final GroundCell cell = ground.getCell(x, y);
+                if (cell != null) {
+                    float xOffs = - cameraCenterX * SCREEN_GRID_SIZE_X;
+                    float yOffs = - cameraCenterY * SCREEN_GRID_SIZE_Y;
+                    float screenPosX = SCREEN_GRID_SIZE_X * x - SCREEN_GRID_BORDER_X + xOffs;
+                    float screenPosY = SCREEN_GRID_SIZE_Y * y - SCREEN_GRID_BORDER_Y + yOffs;
 
                     // Sort items in cell in depth order
                     cell.sortThingsByDistance();

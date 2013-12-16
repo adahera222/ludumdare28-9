@@ -10,7 +10,7 @@ public abstract class BaseBerry extends ThingBase {
 
     protected BaseBerry(double hungerChange, double poisonChange, double tirednessChange){
         super(new EdibleAspect(hungerChange, poisonChange, tirednessChange));
-
+        setName("Berry");
     }
 
     @Override

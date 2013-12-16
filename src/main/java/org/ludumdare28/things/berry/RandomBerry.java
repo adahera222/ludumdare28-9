@@ -11,11 +11,11 @@ public class RandomBerry extends BaseBerry {
      tiredness = random -2 ... 2
      */
     public RandomBerry() {
-        super(randomMinusOneToOne(), randomMinusOneToOne(), randomMinusOneToOne());
+        super(randomValue(), randomValue(), randomValue());
 
     }
 
-    private static double randomMinusOneToOne() {
+    private static double randomValue() {
         return (Math.random() * 4) - 2;
     }
 }

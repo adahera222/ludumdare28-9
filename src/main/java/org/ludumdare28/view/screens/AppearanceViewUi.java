@@ -3,6 +3,7 @@ package org.ludumdare28.view.screens;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -12,6 +13,8 @@ import org.ludumdare28.ground.GroundCell;
 import org.ludumdare28.ground.TerrainType;
 import org.ludumdare28.things.Appearance;
 import org.ludumdare28.things.Thing;
+
+import static org.flowutils.Check.notNull;
 
 /**
  *
@@ -24,7 +27,11 @@ public class AppearanceViewUi extends Actor {
     private Pixmap pixmap = createDefaultBackground();
     private Texture bgTexture;
     private Thing viewedThing;
-    private float viewScale = 0.5f;
+    private float viewScale = 0.7f;
+    private float nameHeight = 20;
+    private String name;
+    private final BitmapFont bitmapFont;
+    private final Matrix4 smallMatrix = new Matrix4();
 
     private Pixmap createDefaultBackground() {
         final Pixmap pixmap = new Pixmap(1, 1, Pixmap.Format.RGBA8888);
@@ -33,20 +40,17 @@ public class AppearanceViewUi extends Actor {
         return pixmap;
     }
 
-    public AppearanceViewUi(float w, float h) {
-        this(w, h, null);
+    public AppearanceViewUi(BitmapFont font, float w, float h) {
+        this(font, w, h, null);
     }
 
-    public AppearanceViewUi(float w, float h, TextureAtlas textureAtlas) {
+    public AppearanceViewUi(BitmapFont bitmapFont, float w, float h, TextureAtlas textureAtlas) {
+        notNull(bitmapFont, "bitmapFont");
+
         this.textureAtlas = textureAtlas;
+        this.bitmapFont = bitmapFont;
         setWidth(w);
         setHeight(h);
-    }
-
-    public AppearanceViewUi(TextureAtlas textureAtlas, TerrainType terrainType, Appearance appearance) {
-        this.textureAtlas = textureAtlas;
-        this.terrainType = terrainType;
-        this.appearance = appearance;
     }
 
     public Appearance getAppearance() {
@@ -86,6 +90,9 @@ public class AppearanceViewUi extends Actor {
 
             // Set appearance the thing has
             setAppearance(viewedThing.getAppearance());
+
+            // Get name
+            name = viewedThing.getName();
         }
     }
 
@@ -119,20 +126,29 @@ public class AppearanceViewUi extends Actor {
         // Draw background if specified
         if (terrainType != null) {
             final TextureRegion texture = terrainType.getTexture(textureAtlas, randomSeed);
-            batch.draw(texture, getX(), getY(), getWidth(), getHeight());
+            batch.draw(texture, getX(), getY() + nameHeight, getWidth(), getHeight() - nameHeight);
+        }
+
+        // Draw name
+        if (name != null) {
+            final BitmapFont.TextBounds textBounds = bitmapFont.getBounds(name);
+            final float textWidth = textBounds.width;
+            final float textHeight = textBounds.height;
+            bitmapFont.draw(batch, name, getX() + 0.5f*(getWidth() - textWidth), getY() + textHeight + nameHeight * 0.3f);
         }
 
         // Draw appearance if specified
         if (appearance != null) {
             final float xOffs = getX() + getWidth() * 0.5f;
-            final float yOffs = getY() + getHeight() * 0.0f;
+            final float yOffs = getY() + getHeight() * 0.1f + nameHeight;
 
-            final Matrix4 matrix = batch.getProjectionMatrix();
-            batch.setProjectionMatrix(matrix.cpy().translate(xOffs, yOffs, 0).scale(viewScale, viewScale, 1f).translate(-xOffs, -yOffs, 0));
+            final Matrix4 normalMatrix = batch.getProjectionMatrix();
+            smallMatrix.set(normalMatrix);
+            smallMatrix.translate(xOffs, yOffs, 0).scale(viewScale, viewScale, 1f).translate(-xOffs, -yOffs, 0);
+            batch.setProjectionMatrix(smallMatrix);
             appearance.render(textureAtlas, batch, xOffs, yOffs);
-            batch.setProjectionMatrix(matrix);
+            batch.setProjectionMatrix(normalMatrix);
         }
-
 
     }
 
@@ -146,5 +162,13 @@ public class AppearanceViewUi extends Actor {
 
     public void setViewScale(float viewScale) {
         this.viewScale = viewScale;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
