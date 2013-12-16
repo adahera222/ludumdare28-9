@@ -35,6 +35,11 @@ public class Player  extends ThingBase {
     private double damageSpeedModifier;
     private boolean alive;
     private boolean awake;
+    private boolean movingLeft;
+
+    private boolean eating;
+    // boolean that tells how much debuff the speed has
+    private boolean weak;
 
     private Thing target;
 
@@ -71,6 +76,7 @@ public class Player  extends ThingBase {
         damageSpeedModifier = 0;
         tirednessSpeedModifier = 0;
         inventory = new InventoryImpl(maxInventorySlots);
+        setAppearance(new PlayerAppearance(this));
 
         controllable.addListener(new Controllable() {
             @Override public void begin(InputAction action) {
@@ -83,10 +89,11 @@ public class Player  extends ThingBase {
             @Override public void end(InputAction action) {
                 if (action == InputAction.USE) {
                     // Stop eating
+                    eating = false;
                 }
             }
         });
-
+        movingLeft = false;
         setName("Adventurer");
     }
 
@@ -94,7 +101,10 @@ public class Player  extends ThingBase {
         // TODO: Always show the closest target in the UI
         // Find target
         //final Thing closestThing = getClosestThing(MAX_EATING_DISTANCE);
-        if (target == null) return;
+        if (target == null) {
+            eating = false;
+            return;
+        }
         if (target instanceof Harvestable) {
             Harvestable harvestable = (Harvestable) target;
             final Thing harvest = harvestable.harvest();
@@ -102,6 +112,7 @@ public class Player  extends ThingBase {
                 final EdibleAspect edibleAspect = harvest.getEdibleAspect();
                 if (edibleAspect != null) {
                     edibleAspect.eat(this);
+                    eating = true;
 
                     System.out.println("Player.startEating");
                     System.out.println("edibleAspect = " + edibleAspect);
@@ -214,7 +225,16 @@ public class Player  extends ThingBase {
     }
 
     public double getSpeed(){
-        return baseSpeed + damageSpeedModifier + hungerSpeedModifier + thirstSpeedModifier + tirednessSpeedModifier;
+       double speedDebuff = damageSpeedModifier + hungerSpeedModifier + thirstSpeedModifier + tirednessSpeedModifier;
+       double speed =  baseSpeed + speedDebuff;
+        // if the debuff are more than half of the walkingspeed the player is weak
+        if (Math.abs(speedDebuff) > baseSpeed/4){
+            weak = true;
+        }
+        else{
+            weak = false;
+        }
+        return speed;
     }
 
     public int getMaxStat() {
@@ -235,6 +255,7 @@ public class Player  extends ThingBase {
         double y = Math.sin(totalGameTime / 4) * 6 + 5;
         setPos(x,y);
         */
+        super.update(lastFrameDurationSeconds, totalGameTime);
 
         // Increase properties
         changeHunger(HUNGER_INCREASE_PER_SECOND * lastFrameDurationSeconds);
@@ -257,8 +278,7 @@ public class Player  extends ThingBase {
             dy /= Math.sqrt(2);
         }
 
-        setPos(getX() + dx,
-               getY() + dy);
+        setPlayerPos(dx,dy);
 
         // TODO: Make sure player can't walk on water
 
@@ -289,5 +309,23 @@ public class Player  extends ThingBase {
 
     public void removeListener(PlayerListener listener) {
         listeners.remove(listener);
+    }
+
+    public boolean isWeak() {
+        return weak;
+    }
+
+    public boolean isEating() {
+        return eating;
+    }
+
+    private void setPlayerPos(double dx, double dy){
+        setPos(getX()+dx, getY()+dy);
+        if (dx < 0 ) movingLeft = true;
+        else movingLeft = false;
+    }
+
+    public boolean isMovingLeft() {
+        return movingLeft;
     }
 }

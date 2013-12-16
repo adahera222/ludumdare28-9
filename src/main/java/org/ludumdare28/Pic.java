@@ -21,7 +21,12 @@ public enum Pic {
     MOVING_SNAKE_BASE("snakeBase1", "snakeBase2", "snakeBase3", "snakeBase2"),
     MOVING_SNAKE_TOP("snakeTop1", "snakeTop2", "snakeTop3", "snakeTop2"),
     BITING_SNAKE_BASE("snakeBiteBase1", "snakeBiteBase2"),
-    BITING_SNAKE_TOP("snakeBiteTop1", "snakeBiteTop2");
+    BITING_SNAKE_TOP("snakeBiteTop1", "snakeBiteTop2"),
+    HUMAN("snakeBiteBase1", "snakeBiteBase2"),
+    WOUNDED_HUMAN("snakeBase1", "snakeBase2"),
+    EATING_HUMAN("snakeBase3");
+
+
 
 
     private final MultiPic multiPic;

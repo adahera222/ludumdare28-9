@@ -50,7 +50,7 @@ public class Main {
 
         // Create player
         Player player = new Player("Player One", 10);
-        player.setAppearance(new ImageAppearance(Pic.STONE, 4, 1, 5));
+
         player.setPos(5, 0);
 
         // Create ground
