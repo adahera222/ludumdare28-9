@@ -17,7 +17,12 @@ public enum Pic {
     BUSH2HALF("bush2half"),
     BUSH2FULL("bush2full"),
     SPRING_BASE("springwaterbase"),
-    SPRING_WATER("springwater1", "springwater2", "springwater3", "springwater4");
+    SPRING_WATER("springwater1", "springwater2", "springwater3", "springwater4"),
+    MOVING_SNAKE_BASE("snakeBase1", "snakeBase2", "snakeBase3", "snakeBase2"),
+    MOVING_SNAKE_TOP("snakeTop1", "snakeTop2", "snakeTop3", "snakeTop2"),
+    BITING_SNAKE_BASE("snakeBiteBase1", "snakeBiteBase2"),
+    BITING_SNAKE_TOP("snakeBiteTop1", "snakeBiteTop2");
+
 
     private final MultiPic multiPic;
 

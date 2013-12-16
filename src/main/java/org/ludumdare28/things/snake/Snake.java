@@ -43,22 +43,27 @@ public class Snake extends ThingBase {
     private boolean farFromHome;
     private boolean closeToHome;
 
+    private boolean attacking;
+    private boolean movingLeft;
+
     public Snake(double homeX, double homeY, Random random){
         hasPoison = true;
         poisonRegenTime = 60 + (random()*60);
         poisonAmount = 10 + random()*15;
         maxDistFromHome = 3 + (random()*10);
-        minDistFromHome = 0.5 + random()*3;
-        setAppearance(new ImageAppearance(Pic.SPRING_WATER));
+        minDistFromHome = 0.25 + random()*2;
+        setAppearance(new SnakeAppearance(this));
         this.homeX = homeX;
         this.homeY = homeY;
+        movingLeft = false;
+        attacking = false;
 
         setName(StringUtils.createRandomName(random, namePrefix, namePostfix));
     }
 
     @Override
     public void update(double lastFrameDurationSeconds, double totalGameTime) {
-
+        super.update(lastFrameDurationSeconds, totalGameTime);
 
         // if snake is lost it wants home
         if (distanceFromHome()> maxDistFromHome) farFromHome = true;
@@ -67,12 +72,14 @@ public class Snake extends ThingBase {
         // going home
         if (farFromHome){
             moveTowardsTarget(homeX,homeY, lastFrameDurationSeconds);
-            if (distanceFromHome() < maxDistFromHome /4) farFromHome = false;
+            if (distanceFromHome() < maxDistFromHome /2) farFromHome = false;
+            attacking = false;
         }
-        // going home
+        // going away
         else if (closeToHome){
             moveFromTarget(homeX, homeY, lastFrameDurationSeconds);
-            if (distanceFromHome() > minDistFromHome*2) closeToHome = false;
+            if (distanceFromHome() > minDistFromHome*1.5) closeToHome = false;
+            attacking = false;
         }
         // random movement and player hunting
         else{
@@ -95,9 +102,11 @@ public class Snake extends ThingBase {
                          bite(player);
                     }
                     moveTowardsTarget(player.getX(), player.getY(), lastFrameDurationSeconds);
+                    attacking = true;
                 }
                 else {
                     moveFromTarget(player.getX(), player.getY(), lastFrameDurationSeconds);
+                    attacking = false;
                 }
             }
             else{
@@ -107,7 +116,8 @@ public class Snake extends ThingBase {
                 dx += Math.cos(totalGameTime * 6 / 1.13* movementRandomisatorMultiplicator+movementRandomisatorPlus) * lastFrameDurationSeconds * 0.1;
                 dy += Math.sin(totalGameTime * 6 / 0.23* movementRandomisatorMultiplicator+movementRandomisatorPlus) * lastFrameDurationSeconds * 0.1;
 
-                setPos(getX() + dx, getY() +dy);
+                setSnakePos(dx, dy);
+                attacking = false;
             }
             if (!hasPoison){
                 timeWithoutPoison += lastFrameDurationSeconds;
@@ -134,7 +144,7 @@ public class Snake extends ThingBase {
         double dx = cos(angle) * MAX_WORLD_SPEED_SQUARES_PER_SECOND * dt;
         double dy = sin(angle) * MAX_WORLD_SPEED_SQUARES_PER_SECOND * dt;
 
-        setPos(getX()+dx, getY()+dy);
+        setSnakePos(dx, dy);
 
     }
 
@@ -142,14 +152,11 @@ public class Snake extends ThingBase {
     private void moveFromTarget(double targetX, double targetY, double dt){
         double distanceX = targetX - getX();
         double distanceY = targetY - getY();
-
-
-
         double angle = atan2(distanceY, distanceX);
         double dx = cos(angle) * MAX_WORLD_SPEED_SQUARES_PER_SECOND * dt;
         double dy = sin(angle) * MAX_WORLD_SPEED_SQUARES_PER_SECOND * dt;
+        setSnakePos(-dx,-dy);
 
-        setPos(getX()-dx, getY()-dy);
     }
 
     private double distanceFromHome(){
@@ -159,6 +166,17 @@ public class Snake extends ThingBase {
 
     }
 
+    private void setSnakePos(double dx, double dy){
+        setPos(getX()+dx, getY()+dy);
+        if (dx < 0 ) movingLeft = true;
+        else movingLeft = false;
+    }
 
+    public boolean isAttacking() {
+        return attacking;
+    }
 
+    public boolean isMovingLeft() {
+        return movingLeft;
+    }
 }
