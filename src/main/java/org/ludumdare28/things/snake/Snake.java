@@ -31,7 +31,7 @@ public class Snake extends ThingBase {
     public Snake(){
         hasPoison = true;
         poisonRegenTime = 60 + (Math.random()*60);
-        poisonAmount = 5 + Math.random()*5;
+        poisonAmount = 5 + Math.random()*15;
         maxDistFromHome = 2 + (Math.random()*3);
         setAppearance(new ImageAppearance(Pic.SPRING_WATER));
     }
