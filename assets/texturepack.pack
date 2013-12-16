@@ -3,79 +3,378 @@ texturepack.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+watershore5
+  rotate: false
+  xy: 0, 896
+  size: 192, 128
+  orig: 192, 128
+  offset: 0, 0
+  index: -1
 sand2
+  rotate: false
+  xy: 0, 768
+  size: 192, 128
+  orig: 192, 128
+  offset: 0, 0
+  index: -1
+drygrass2
+  rotate: false
+  xy: 192, 896
+  size: 192, 128
+  orig: 192, 128
+  offset: 0, 0
+  index: -1
+water3
+  rotate: false
+  xy: 0, 640
+  size: 192, 128
+  orig: 192, 128
+  offset: 0, 0
+  index: -1
+oldsand1
+  rotate: false
+  xy: 192, 768
+  size: 192, 128
+  orig: 192, 128
+  offset: 0, 0
+  index: -1
+watershore2
+  rotate: false
+  xy: 384, 896
+  size: 192, 128
+  orig: 192, 128
+  offset: 0, 0
+  index: -1
+rock1
+  rotate: false
+  xy: 0, 512
+  size: 192, 128
+  orig: 192, 128
+  offset: 0, 0
+  index: -1
+wetsand3
+  rotate: false
+  xy: 192, 640
+  size: 192, 128
+  orig: 192, 128
+  offset: 0, 0
+  index: -1
+wetsand2
+  rotate: false
+  xy: 384, 768
+  size: 192, 128
+  orig: 192, 128
+  offset: 0, 0
+  index: -1
+rock2
+  rotate: false
+  xy: 576, 896
+  size: 192, 128
+  orig: 192, 128
+  offset: 0, 0
+  index: -1
+drygrass4
   rotate: false
   xy: 0, 384
   size: 192, 128
   orig: 192, 128
   offset: 0, 0
   index: -1
+water1
+  rotate: false
+  xy: 192, 512
+  size: 192, 128
+  orig: 192, 128
+  offset: 0, 0
+  index: -1
 sand3
+  rotate: false
+  xy: 384, 640
+  size: 192, 128
+  orig: 192, 128
+  offset: 0, 0
+  index: -1
+rock4
+  rotate: false
+  xy: 576, 768
+  size: 192, 128
+  orig: 192, 128
+  offset: 0, 0
+  index: -1
+drygrass1
+  rotate: false
+  xy: 768, 896
+  size: 192, 128
+  orig: 192, 128
+  offset: 0, 0
+  index: -1
+deepwater2
   rotate: false
   xy: 0, 256
   size: 192, 128
   orig: 192, 128
   offset: 0, 0
   index: -1
-sand1
+deepwater1
   rotate: false
   xy: 192, 384
   size: 192, 128
   orig: 192, 128
   offset: 0, 0
   index: -1
-bush1half
+drygrass3
+  rotate: false
+  xy: 384, 512
+  size: 192, 128
+  orig: 192, 128
+  offset: 0, 0
+  index: -1
+junglegrass3
+  rotate: false
+  xy: 576, 640
+  size: 192, 128
+  orig: 192, 128
+  offset: 0, 0
+  index: -1
+sand1
+  rotate: false
+  xy: 768, 768
+  size: 192, 128
+  orig: 192, 128
+  offset: 0, 0
+  index: -1
+water2
   rotate: false
   xy: 0, 128
+  size: 192, 128
+  orig: 192, 128
+  offset: 0, 0
+  index: -1
+deepwater3
+  rotate: false
+  xy: 0, 0
+  size: 192, 128
+  orig: 192, 128
+  offset: 0, 0
+  index: -1
+junglegrass2
+  rotate: false
+  xy: 192, 256
+  size: 192, 128
+  orig: 192, 128
+  offset: 0, 0
+  index: -1
+junglegrass1
+  rotate: false
+  xy: 384, 384
+  size: 192, 128
+  orig: 192, 128
+  offset: 0, 0
+  index: -1
+oldsand3
+  rotate: false
+  xy: 576, 512
+  size: 192, 128
+  orig: 192, 128
+  offset: 0, 0
+  index: -1
+watershore4
+  rotate: false
+  xy: 768, 640
+  size: 192, 128
+  orig: 192, 128
+  offset: 0, 0
+  index: -1
+wetsand1
+  rotate: false
+  xy: 192, 128
+  size: 192, 128
+  orig: 192, 128
+  offset: 0, 0
+  index: -1
+watershore3
+  rotate: false
+  xy: 192, 0
+  size: 192, 128
+  orig: 192, 128
+  offset: 0, 0
+  index: -1
+oldsand2
+  rotate: false
+  xy: 384, 256
+  size: 192, 128
+  orig: 192, 128
+  offset: 0, 0
+  index: -1
+wetsand4
+  rotate: false
+  xy: 576, 384
+  size: 192, 128
+  orig: 192, 128
+  offset: 0, 0
+  index: -1
+rock3
+  rotate: false
+  xy: 768, 512
+  size: 192, 128
+  orig: 192, 128
+  offset: 0, 0
+  index: -1
+groundframe
+  rotate: false
+  xy: 384, 128
+  size: 192, 128
+  orig: 192, 128
+  offset: 0, 0
+  index: -1
+watershore1
+  rotate: false
+  xy: 384, 0
+  size: 192, 128
+  orig: 192, 128
+  offset: 0, 0
+  index: -1
+junglegrass4
+  rotate: false
+  xy: 576, 256
+  size: 192, 128
+  orig: 192, 128
+  offset: 0, 0
+  index: -1
+snakeTop1
+  rotate: false
+  xy: 768, 384
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+bush1half
+  rotate: false
+  xy: 896, 384
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+snakeBiteTop1
+  rotate: false
+  xy: 576, 128
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+snakeTop2
+  rotate: false
+  xy: 576, 0
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 bush1full
   rotate: false
-  xy: 0, 0
+  xy: 768, 256
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+snakeBase3
+  rotate: false
+  xy: 896, 256
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 springwater1
   rotate: false
-  xy: 192, 256
+  xy: 704, 128
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 bush2full
   rotate: false
-  xy: 384, 384
+  xy: 704, 0
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 springwater2
   rotate: false
-  xy: 128, 128
+  xy: 832, 128
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 springwater4
   rotate: false
-  xy: 128, 0
+  xy: 832, 0
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
+stone4
+  rotate: false
+  xy: 960, 960
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+stone1
+  rotate: false
+  xy: 960, 192
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+stone3
+  rotate: false
+  xy: 960, 896
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+stone2
+  rotate: false
+  xy: 960, 128
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+stone5
+  rotate: false
+  xy: 960, 832
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+
+texturepack2.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
 springwaterbase
   rotate: false
-  xy: 320, 256
+  xy: 0, 128
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 bush1
   rotate: false
-  xy: 512, 384
+  xy: 0, 0
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+snakeBase1
+  rotate: false
+  xy: 128, 128
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+snakeBase2
+  rotate: false
+  xy: 128, 0
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
@@ -94,45 +393,38 @@ springwater3
   orig: 128, 128
   offset: 0, 0
   index: -1
-bush2half
+snakeTop3
   rotate: false
-  xy: 448, 256
+  xy: 384, 128
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
-stone4
+snakeBiteBase2
   rotate: false
-  xy: 640, 448
-  size: 64, 64
-  orig: 64, 64
+  xy: 384, 0
+  size: 128, 128
+  orig: 128, 128
   offset: 0, 0
   index: -1
-stone1
+bush2half
   rotate: false
-  xy: 384, 192
-  size: 64, 64
-  orig: 64, 64
+  xy: 512, 128
+  size: 128, 128
+  orig: 128, 128
   offset: 0, 0
   index: -1
-stone3
+snakeBiteTop2
   rotate: false
-  xy: 576, 320
-  size: 64, 64
-  orig: 64, 64
+  xy: 512, 0
+  size: 128, 128
+  orig: 128, 128
   offset: 0, 0
   index: -1
-stone2
+snakeBiteBase1
   rotate: false
-  xy: 640, 384
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: -1
-stone5
-  rotate: false
-  xy: 704, 448
-  size: 64, 64
-  orig: 64, 64
+  xy: 640, 128
+  size: 128, 128
+  orig: 128, 128
   offset: 0, 0
   index: -1

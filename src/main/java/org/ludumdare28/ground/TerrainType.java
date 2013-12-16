@@ -10,11 +10,17 @@ import org.ludumdare28.utils.MultiPic;
 public enum TerrainType {
 
     DEEP_WATER("deepwater1", "deepwater2"),
-    SAND("sand1", "sand2", "sand3");
-/*
-    WATER("water1", "water2");
-    WATER_SHORE("watershore1", "watershore2");
-     */
+    WATER("water1", "water2", "water3", "water4"),
+    WATER_SHORE("watershore1", "watershore2", "watershore3", "watershore4", "watershore5"),
+    WET_SAND("wetsand1", "wetsand2"),
+    SAND("sand1", "sand2", "sand3"),
+    GRASS("grass1", "grass2", "grass3"),
+    JUNGLE("jungle1", "jungle2", "jungle3"),
+    HIGHLANDS("highlands1", "highlands2", "highlands3"),
+    ROCKY("rocky1", "rocky2", "rocky3"),
+    MOUNTAIN("mountain1", "mountain2", "mountain3"),
+
+    ;
 
     private final MultiPic multiPic;
 
