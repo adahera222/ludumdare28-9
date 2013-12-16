@@ -12,7 +12,7 @@ public class HealthBerry extends BaseBerry{
      tiredness = 0
      */
     public HealthBerry() {
-        super(0,-2,0);
+        super(0,-2,0, -0.2);
 
     }
 }

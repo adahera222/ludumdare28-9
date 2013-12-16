@@ -1,11 +1,9 @@
 package org.ludumdare28.things.berry;
 
-import org.ludumdare28.things.aspects.EdibleAspect;
-
 /**
  * Author: Shiera
  */
-public class FoodBerry extends BaseBerry{
+public class WaterBerry extends BaseBerry{
 
 
     /**
@@ -14,7 +12,7 @@ public class FoodBerry extends BaseBerry{
      damage    = 0
      tiredness = 0
      */
-    public FoodBerry() {
-        super(-2,0,0, -0.2);
+    public WaterBerry() {
+        super(0,0,0, -1);
     }
 }

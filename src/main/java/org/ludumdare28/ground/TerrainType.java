@@ -9,30 +9,32 @@ import org.ludumdare28.utils.MultiPic;
  */
 public enum TerrainType {
 
-    DEEP_WATER(0, false, true, 1.5, "deepwater1", "deepwater2", "deepwater3"),
-    WATER(0, false, true, 0.6, "water1", "water2", "water3"),
-    WATER_SHORE(0, false, true, 0.3, "watershore1", "watershore2", "watershore3", "watershore4", "watershore5"),
-    WET_SAND(1, true, false, 1, "wetsand1", "wetsand2", "wetsand3", "wetsand4"),
-    SAND(1, true, false, 1, "sand1", "sand2", "sand3"),
-    GRASS(3, true, false, 1, "drygrass1", "drygrass2", "drygrass3", "drygrass4"),
-    JUNGLE(3, true, false, 1, "junglegrass1", "junglegrass2", "junglegrass3", "junglegrass4"),
-    ROCKY(2, true, false, 1, "rock1", "rock2", "rock3", "rock4"),
+    DEEP_WATER(0, true, false, true, 1.5, "deepwater1", "deepwater2", "deepwater3"),
+    WATER(0, true, false, true, 0.6, "water1", "water2", "water3"),
+    WATER_SHORE(0, true, true, true, 0.3, "watershore1", "watershore2", "watershore3", "watershore4", "watershore5"),
+    WET_SAND(1, false, true, false, 1, "wetsand1", "wetsand2", "wetsand3", "wetsand4"),
+    SAND(2, false, true, false, 1, "sand1", "sand2", "sand3"),
+    GRASS(4, false, true, false, 1, "drygrass1", "drygrass2", "drygrass3", "drygrass4"),
+    JUNGLE(4, false, true, false, 1, "junglegrass1", "junglegrass2", "junglegrass3", "junglegrass4"),
+    ROCKY(3, false, true, false, 1, "rock1", "rock2", "rock3", "rock4"),
 
     ;
 
     private final MultiPic multiPic;
     private final boolean passable;
+    private final boolean water;
     private final int layer;
     private final boolean animated;
     private final double animationSpeed;
 
     private TerrainType(int layer,
-                        boolean passable,
+                        boolean water, boolean passable,
                         boolean animated,
                         double animationSpeed,
                         String textureName0,
                         String... textureNames) {
         this.layer = layer;
+        this.water = water;
         this.passable = passable;
         this.animated = animated;
         this.animationSpeed = animationSpeed;
@@ -89,5 +91,9 @@ public enum TerrainType {
 
     public boolean isPassable() {
         return passable;
+    }
+
+    public boolean isWater() {
+        return water;
     }
 }

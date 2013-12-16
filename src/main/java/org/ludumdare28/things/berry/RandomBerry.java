@@ -11,7 +11,7 @@ public class RandomBerry extends BaseBerry {
      tiredness = random -2 ... 2
      */
     public RandomBerry() {
-        super(randomValue(), randomValue(), randomValue());
+        super(randomValue(), randomValue(), randomValue(), -0.1);
 
     }
 

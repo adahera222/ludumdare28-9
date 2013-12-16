@@ -167,7 +167,7 @@ public class WorldScreen implements Screen {
 
         final Slider slider = new Slider(0, 100, 1, false, skin);
         slider.setColor(attribute.getColor());
-        slider.setAnimateDuration(1);
+        slider.setAnimateDuration(0.5f);
         slider.setTouchable(Touchable.disabled);
         slider.setAnimateInterpolation(Interpolation.linear);
         slider.setWidth(sliderWidth);

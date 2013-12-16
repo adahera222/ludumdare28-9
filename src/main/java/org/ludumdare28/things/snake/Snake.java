@@ -1,8 +1,6 @@
 package org.ludumdare28.things.snake;
 
 import com.badlogic.gdx.graphics.Color;
-import org.ludumdare28.Pic;
-import org.ludumdare28.things.ImageAppearance;
 import org.ludumdare28.things.Thing;
 import org.ludumdare28.things.ThingBase;
 import org.ludumdare28.things.player.Player;
@@ -19,8 +17,8 @@ import static java.lang.Math.*;
  */
 public class Snake extends ThingBase {
 
-    private static final List<String> namePrefix = Arrays.asList("Huggo ", "Bitty ", "Snappy ", "Slith ", "Igor ", "Mary ","Ripper ", "Killy ", "Rippy ", "Hissy ", "Wishy ", "Sneaky ", "Riggy ", "Slinky ");
-    private static final List<String> namePostfix = Arrays.asList("the Snake", "the Snake", "the Snake", "the Wyrm", "Greentail", "the Swift", "the Squeaky", "the Brave", "the Silent", "the Fast", "the Slow", "the Cold");
+    private static final List<String> namePrefix = Arrays.asList("Huggo ", "Bitty ", "Snappy ", "Slith ", "Igor ", "Mary ","Ripper ", "Killy ", "Rippy ", "Hissy ", "Wishy ", "Sneaky ", "Riggy ", "Slinky ", "Hippy ", "Snork ");
+    private static final List<String> namePostfix = Arrays.asList("the Snake", "the Snake", "the Snake", "the Wyrm", "Greentail", "the Swift", "the Squeaky", "the Brave", "the Silent", "the Fast", "the Slow", "the Cold", "the Viper", "the Viper", "the Viper", "the Meek", "the Venomous");
 
 
     private boolean hasPoison;
@@ -47,11 +45,16 @@ public class Snake extends ThingBase {
     private boolean attacking;
     private boolean movingLeft;
 
-    public Snake(double homeX, double homeY, Random random, Color baseColor, Color topColor){
+    public Snake(double homeX,
+                 double homeY,
+                 Random random,
+                 Color baseColor,
+                 Color topColor,
+                 final int maxDistanceFromHome){
         hasPoison = true;
         poisonRegenTime = 60 + (random()*60);
         poisonAmount = 8 + random()*13;
-        maxDistFromHome = 3 + (random()*10);
+        maxDistFromHome = 3 + (random()* maxDistanceFromHome);
         minDistFromHome = 0.25 + random()*2;
         setAppearance(new SnakeAppearance(this, baseColor, topColor));
         this.homeX = homeX;
@@ -60,6 +63,7 @@ public class Snake extends ThingBase {
         attacking = false;
 
         setName(StringUtils.createRandomName(random, namePrefix, namePostfix));
+        setCanWalkAnywhere(true);
     }
 
     @Override
@@ -87,7 +91,7 @@ public class Snake extends ThingBase {
             // Update target
             if (stepsToTargetUpdate <= 0) {
                 stepsToTargetUpdate = STEPS_BETWEEN_TARGET_UPDATES;
-                target = getClosestThing(MAX_TARGET_DISTANCE);
+                target = getClosestThing(MAX_TARGET_DISTANCE, Player.class);
             }
             else {
                 stepsToTargetUpdate--;

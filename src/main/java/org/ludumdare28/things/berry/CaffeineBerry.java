@@ -11,7 +11,7 @@ public class CaffeineBerry extends BaseBerry{
      tiredness = -2
      */
     public CaffeineBerry() {
-        super(0,0,-2);
+        super(0,0,-2, -0.1);
 
     }
 }

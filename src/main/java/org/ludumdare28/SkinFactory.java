@@ -40,7 +40,7 @@ public class SkinFactory {
         Slider.SliderStyle sliderStyle = new Slider.SliderStyle();
         sliderStyle.background = skin.newDrawable("white", Color.DARK_GRAY);
         sliderStyle.knob  = skin.newDrawable("white", Color.LIGHT_GRAY);
-        sliderStyle.knobAfter = skin.newDrawable("white", Color.GRAY);
+        sliderStyle.knobAfter = skin.newDrawable("white", Color.DARK_GRAY);
         sliderStyle.knobBefore = skin.newDrawable("white", Color.WHITE);
         skin.add("default-horizontal", sliderStyle);
 

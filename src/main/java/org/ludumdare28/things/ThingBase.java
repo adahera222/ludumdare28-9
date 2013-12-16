@@ -96,11 +96,15 @@ public abstract class ThingBase implements Thing {
 
     @Override public void setPos(double x, double y) {
         if (ground != null) {
-            final boolean oldTerrainPassable = ground.getCell(posX, posY).getTerrainType().isPassable();
-            final boolean newTerrainPassable = ground.getCell(x, y).getTerrainType().isPassable();
+            final GroundCell newCell = ground.getCell(posX, posY);
+            final GroundCell oldCell = ground.getCell(x, y);
+            if (oldCell != null && newCell != null) {
+                final boolean oldTerrainPassable = newCell.getTerrainType().isPassable();
+                final boolean newTerrainPassable = oldCell.getTerrainType().isPassable();
 
-            // Don't allow the player to walk into unpassable terrain, but allow them to walk out of there if they get there.
-            if (oldTerrainPassable && !newTerrainPassable) return;
+                // Don't allow the player to walk into unpassable terrain, but allow them to walk out of there if they get there.
+                if (oldTerrainPassable && !newTerrainPassable) return;
+            }
         }
 
         double oldX = posX;

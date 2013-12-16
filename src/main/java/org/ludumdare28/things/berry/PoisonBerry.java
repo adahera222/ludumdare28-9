@@ -14,7 +14,7 @@ public class PoisonBerry extends BaseBerry {
      tiredness = 0
      */
     public PoisonBerry() {
-        super(0,2,0);
+        super(0,2,0, -0.0);
 
     }
 }

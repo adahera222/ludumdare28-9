@@ -14,7 +14,7 @@ public class HungerBerry extends BaseBerry {
      tiredness = 0
      */
     public HungerBerry() {
-        super(2,0,0);
+        super(2,0,0, -0.1);
 
     }
 

@@ -10,13 +10,15 @@ public class EdibleAspect {
     private double hungerChange;
     private double poisonChange;
     private double tirednessChange;
+    private double thirstChange;
     private Thing hostThing;
 
     /** Changes "heal" when negative*/
-    public EdibleAspect(double hungerChange, double poisonChange, double tirednessChange) {
+    public EdibleAspect(double hungerChange, double poisonChange, double tirednessChange, double thirstChange) {
         this.hungerChange = hungerChange;
         this.poisonChange = poisonChange;
         this.tirednessChange = tirednessChange;
+        this.thirstChange = thirstChange;
     }
 
     /**
@@ -27,6 +29,7 @@ public class EdibleAspect {
         player.changePoison(poisonChange);
         player.changeHunger(hungerChange);
         player.changeTiredness(tirednessChange);
+        player.changeThirst(thirstChange);
         hostThing.delete();
     }
 
