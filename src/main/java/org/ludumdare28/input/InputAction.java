@@ -10,6 +10,6 @@ public enum InputAction {
     DOWN,
     USE,
     MENU,
-    CUT
+    SLEEP
 
 }

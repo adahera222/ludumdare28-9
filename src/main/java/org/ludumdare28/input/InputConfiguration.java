@@ -48,7 +48,7 @@ public class InputConfiguration {
         inputConfiguration.bind(Input.Keys.CONTROL_LEFT, InputAction.USE);
         inputConfiguration.bind(Input.Keys.CONTROL_RIGHT, InputAction.USE);
         inputConfiguration.bind(Input.Keys.ESCAPE, InputAction.MENU);
-        inputConfiguration.bind(Input.Keys.C, InputAction.CUT);
+        inputConfiguration.bind(Input.Keys.Z, InputAction.SLEEP);
 
 
         return inputConfiguration;
