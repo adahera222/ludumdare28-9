@@ -89,6 +89,7 @@ public class Game implements ApplicationListener {
 
         spriteBatch.setProjectionMatrix(camera.combined);
         spriteBatch.enableBlending();
+        spriteBatch.setColor(Color.WHITE);
 
         spriteBatch.begin();
         screenView.render(textureAtlas, spriteBatch, camera);
