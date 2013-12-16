@@ -109,7 +109,7 @@ public class Main {
         world.addThing(new Spring(),SPRING_X,SPRING_Y);
 
         //Snake
-        addSnakes(world, 18, random);
+        addSnakes(world, 16, random);
 
 
         return world;
@@ -173,7 +173,9 @@ public class Main {
 
 
         for (int i = 0; i < numberOfSnakes; i++) {
-            world.addThing(new Snake(SPRING_X,SPRING_Y, random),
+            Color snakeTopColor = randomBrightColor(random);
+            Color snakeBaseColor = randomTintedColor(random, 0.7, -0.15);
+            world.addThing(new Snake(SPRING_X,SPRING_Y, random, snakeBaseColor, snakeTopColor),
                     random.nextDouble() * WORLD_SIZE_X,
                     random.nextDouble() * WORLD_SIZE_Y);
         }

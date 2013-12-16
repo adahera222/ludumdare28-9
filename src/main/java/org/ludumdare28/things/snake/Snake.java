@@ -1,5 +1,6 @@
 package org.ludumdare28.things.snake;
 
+import com.badlogic.gdx.graphics.Color;
 import org.ludumdare28.Pic;
 import org.ludumdare28.things.ImageAppearance;
 import org.ludumdare28.things.Thing;
@@ -46,13 +47,13 @@ public class Snake extends ThingBase {
     private boolean attacking;
     private boolean movingLeft;
 
-    public Snake(double homeX, double homeY, Random random){
+    public Snake(double homeX, double homeY, Random random, Color baseColor, Color topColor){
         hasPoison = true;
         poisonRegenTime = 60 + (random()*60);
-        poisonAmount = 10 + random()*15;
+        poisonAmount = 8 + random()*13;
         maxDistFromHome = 3 + (random()*10);
         minDistFromHome = 0.25 + random()*2;
-        setAppearance(new SnakeAppearance(this));
+        setAppearance(new SnakeAppearance(this, baseColor, topColor));
         this.homeX = homeX;
         this.homeY = homeY;
         movingLeft = false;
