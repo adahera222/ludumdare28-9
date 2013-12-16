@@ -8,11 +8,11 @@ public class HealthBerry extends BaseBerry{
     /**
      HealthBerry:
      hunger    = 0
-     damage    = -1
+     damage    = -2
      tiredness = 0
      */
     public HealthBerry() {
-        super(0,-1,0);
+        super(0,-2,0);
 
     }
 }

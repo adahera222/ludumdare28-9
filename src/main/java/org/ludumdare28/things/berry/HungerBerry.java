@@ -9,12 +9,12 @@ public class HungerBerry extends BaseBerry {
 
     /**
      hungerberry:
-     hunger    = 1
+     hunger    = 2
      damage    = 0
      tiredness = 0
      */
     public HungerBerry() {
-        super(1,0,0);
+        super(2,0,0);
 
     }
 

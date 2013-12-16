@@ -10,11 +10,11 @@ public class FoodBerry extends BaseBerry{
 
     /**
     foodberry:
-     hunger    = -1
+     hunger    = -2
      damage    = 0
      tiredness = 0
      */
     public FoodBerry() {
-        super(-1,0,0);
+        super(-2,0,0);
     }
 }

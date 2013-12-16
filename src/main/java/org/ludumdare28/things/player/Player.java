@@ -41,7 +41,7 @@ public class Player  extends ThingBase {
     private static double MAX_WORLD_SPEED_SQUARES_PER_SECOND = 2;
     private static double HUNGER_INCREASE_PER_SECOND = 0.3;
     private static double THIRST_INCREASE_PER_SECOND = 1;
-    private static double TIREDNESS_INCREASE_PER_SECOND = 0.05;
+    private static double TIREDNESS_INCREASE_PER_SECOND = 0.4;
 
     private int stepsToTargetUpdate = STEPS_BETWEEN_TARGET_UPDATES;
 

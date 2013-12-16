@@ -9,6 +9,7 @@ public enum InputAction {
     UP,
     DOWN,
     USE,
-    MENU
+    MENU,
+    CUT
 
 }

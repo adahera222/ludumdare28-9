@@ -12,10 +12,11 @@ public class InputConfiguration {
 
     private Map<Integer, InputAction> bindings = new HashMap<Integer, InputAction>();
 
-    public static InputConfiguration WASD_AND_SPACE = createWasdSpaceConfiguration();
+   // public static InputConfiguration WASD_AND_SPACE = createWasdSpaceConfiguration();
     public static InputConfiguration ARROWS_AND_WASD = createArrowsAndWasdConfiguration();
-    public static InputConfiguration ARROWS_AND_ENTER = createArrowsAndEnterConfiguration();
+    //public static InputConfiguration ARROWS_AND_ENTER = createArrowsAndEnterConfiguration();
 
+    /*
     public static InputConfiguration createWasdSpaceConfiguration() {
         final InputConfiguration inputConfiguration = new InputConfiguration();
         inputConfiguration.bind(Input.Keys.W, InputAction.UP);
@@ -26,9 +27,11 @@ public class InputConfiguration {
         inputConfiguration.bind(Input.Keys.ENTER, InputAction.USE);
         inputConfiguration.bind(Input.Keys.CONTROL_LEFT, InputAction.USE);
         inputConfiguration.bind(Input.Keys.ESCAPE, InputAction.MENU);
+        inputConfiguration.bind(Input.Keys.C, InputAction.CUT);
 
         return inputConfiguration;
     }
+    */
 
     public static InputConfiguration createArrowsAndWasdConfiguration() {
         final InputConfiguration inputConfiguration = new InputConfiguration();
@@ -45,10 +48,13 @@ public class InputConfiguration {
         inputConfiguration.bind(Input.Keys.CONTROL_LEFT, InputAction.USE);
         inputConfiguration.bind(Input.Keys.CONTROL_RIGHT, InputAction.USE);
         inputConfiguration.bind(Input.Keys.ESCAPE, InputAction.MENU);
+        inputConfiguration.bind(Input.Keys.C, InputAction.CUT);
+
 
         return inputConfiguration;
     }
 
+    /*
     public static InputConfiguration createArrowsAndEnterConfiguration() {
         final InputConfiguration inputConfiguration = new InputConfiguration();
         inputConfiguration.bind(Input.Keys.UP, InputAction.UP);
@@ -60,7 +66,7 @@ public class InputConfiguration {
         inputConfiguration.bind(Input.Keys.ESCAPE, InputAction.MENU);
 
         return inputConfiguration;
-    }
+    }*/
 
     public void bind(int keyCode, InputAction action) {
         bindings.put(keyCode, action);

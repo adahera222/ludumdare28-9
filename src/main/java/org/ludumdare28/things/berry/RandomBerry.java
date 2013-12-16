@@ -6,9 +6,9 @@ package org.ludumdare28.things.berry;
 public class RandomBerry extends BaseBerry {
     /**
      RandomBerry:
-     hunger    = random -1 ... 1
-     damage    = random -1 ... 1
-     tiredness = random -1 ... 1
+     hunger    = random -2 ... 2
+     damage    = random -2 ... 2
+     tiredness = random -2 ... 2
      */
     public RandomBerry() {
         super(randomMinusOneToOne(), randomMinusOneToOne(), randomMinusOneToOne());
@@ -16,6 +16,6 @@ public class RandomBerry extends BaseBerry {
     }
 
     private static double randomMinusOneToOne() {
-        return (Math.random() * 2) - 1;
+        return (Math.random() * 4) - 2;
     }
 }

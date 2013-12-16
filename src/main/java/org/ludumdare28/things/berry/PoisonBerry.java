@@ -10,11 +10,11 @@ public class PoisonBerry extends BaseBerry {
     /**
      poisonberry:
      hunger    = 0
-     damage    = 1
+     damage    = 2
      tiredness = 0
      */
     public PoisonBerry() {
-        super(0,1,0);
+        super(0,2,0);
 
     }
 }

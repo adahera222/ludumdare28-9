@@ -8,10 +8,10 @@ public class CaffeineBerry extends BaseBerry{
      CaffeineBerry:
      hunger    = 0
      damage    = 0
-     tiredness = -1
+     tiredness = -2
      */
     public CaffeineBerry() {
-        super(0,0,-1);
+        super(0,0,-2);
 
     }
 }
