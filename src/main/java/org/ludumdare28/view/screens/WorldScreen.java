@@ -12,6 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import org.ludumdare28.SkinFactory;
+import org.ludumdare28.ground.GroundCell;
+import org.ludumdare28.ground.TerrainType;
 import org.ludumdare28.ground.view.GroundView;
 import org.ludumdare28.input.InputConfiguration;
 import org.ludumdare28.input.InputHandler;
@@ -36,6 +38,7 @@ public class WorldScreen implements Screen {
     private final Map<PlayerAttribute, Slider> attributeSliders = new HashMap<PlayerAttribute, Slider>();
 
     private Stage stage;
+    private AppearanceViewUi targetView;
 
     public WorldScreen(World world) {
         this.world = world;
@@ -55,6 +58,7 @@ public class WorldScreen implements Screen {
     @Override public void update(double lastStepDurationSeconds, double totalGameTime) {
         world.update(lastStepDurationSeconds, totalGameTime);
         groundView.update(lastStepDurationSeconds, totalGameTime);
+        if (targetView != null) targetView.update(lastStepDurationSeconds, totalGameTime);
 
         if (stage != null) stage.act((float) lastStepDurationSeconds);
     }
@@ -96,6 +100,7 @@ public class WorldScreen implements Screen {
         table.bottom();
         stage.addActor(table);
 
+        /*
         // Create a button with the "default" TextButtonStyle. A 3rd parameter can be used to specify a name other than "default".
         final TextButton button = new TextButton("Click me!", skin);
         table.add(button);
@@ -110,16 +115,21 @@ public class WorldScreen implements Screen {
                 button.setText("Good job!");
             }
         });
+        */
+
+        float uiHeight = 100;
 
         Table attributeTable = new Table(skin);
+        attributeTable.setBackground(skin.newDrawable("white", Color.BLACK));
         // Create slider indicators for attributes
         for (PlayerAttribute attribute : PlayerAttribute.values()) {
-            createAttributeView(attributeTable, skin, attribute, 50, 100);
+            createAttributeView(attributeTable, skin, attribute, 50, 100, uiHeight / PlayerAttribute.values().length);
         }
         table.add(attributeTable);
 
         // Add an image actor. Have to set the size, else it would be the size of the drawable (which is the 1x1 texture).
-        table.add(new Image(skin.newDrawable("white", Color.RED))).size(64);
+        targetView = new AppearanceViewUi(uiHeight, uiHeight, textureAtlas);
+        table.add(targetView);
 
         // Listen to player
         world.getPlayer().addListener(new PlayerListener() {
@@ -131,8 +141,7 @@ public class WorldScreen implements Screen {
             }
 
             @Override public void onTargetChanged(Thing targetedThing, Thing oldTargetedThing) {
-                // TODO: Show target
-
+                targetView.setViewedThing(targetedThing);
             }
 
             @Override public void onPlayerAction(PlayerAction action, Thing target, Thing tool) {
@@ -145,18 +154,25 @@ public class WorldScreen implements Screen {
         return stage;
     }
 
-    private void createAttributeView(Table table, Skin skin, final PlayerAttribute attribute, float labelWidth, float sliderWidth) {
+    private void createAttributeView(Table table,
+                                     Skin skin,
+                                     final PlayerAttribute attribute,
+                                     float labelWidth,
+                                     float sliderWidth,
+                                     float height) {
         Label label = new Label(attribute.getName(), skin);
         label.setWidth(labelWidth);
-        table.add(label);
+        label.setHeight(height);
+        table.add(label).left().padLeft(5).padRight(5).height(height);
 
         final Slider slider = new Slider(0, 100, 1, false, skin);
         slider.setColor(attribute.getColor());
-        slider.setAnimateDuration(3);
+        slider.setAnimateDuration(1);
         slider.setTouchable(Touchable.disabled);
-        slider.setAnimateInterpolation(Interpolation.sine);
+        slider.setAnimateInterpolation(Interpolation.linear);
         slider.setWidth(sliderWidth);
-        table.add(slider);
+        slider.setHeight(height);
+        table.add(slider).height(height);
 
         table.row();
 

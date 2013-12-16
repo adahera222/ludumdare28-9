@@ -1,6 +1,7 @@
 package org.ludumdare28.things;
 
 import org.ludumdare28.ground.Ground;
+import org.ludumdare28.ground.GroundCell;
 import org.ludumdare28.inventory.Inventory;
 import org.ludumdare28.things.aspects.DrinkableAspect;
 import org.ludumdare28.things.aspects.EdibleAspect;
@@ -68,6 +69,16 @@ public abstract class ThingBase implements Thing {
 
     public Ground getGround() {
         return ground;
+    }
+
+    @Override public GroundCell getGroundCell() {
+        final Ground ground = getGround();
+        if (ground != null) {
+            return ground.getCell(getX(), getY());
+        }
+        else {
+            return null;
+        }
     }
 
     @Override public Inventory getInventoryThingIsIn() {

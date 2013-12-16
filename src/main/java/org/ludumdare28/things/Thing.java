@@ -1,6 +1,7 @@
 package org.ludumdare28.things;
 
 import org.ludumdare28.Updating;
+import org.ludumdare28.ground.GroundCell;
 import org.ludumdare28.inventory.Inventory;
 import org.ludumdare28.ground.Ground;
 import org.ludumdare28.things.aspects.DrinkableAspect;
@@ -22,6 +23,11 @@ public interface Thing extends Updating {
      * @return the ground that the thing is on, or null if it is not on a ground.
      */
     Ground getGround();
+
+    /**
+     * @return the ground cell this thing is on, or null if it is not on a ground cell.
+     */
+    GroundCell getGroundCell();
 
     /**
      * @return the world the thing is in.

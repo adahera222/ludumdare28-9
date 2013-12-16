@@ -263,7 +263,11 @@ public class Player  extends ThingBase {
         // Update target
         if (stepsToTargetUpdate <= 0) {
             stepsToTargetUpdate = STEPS_BETWEEN_TARGET_UPDATES;
+            Thing oldTarget = target;
             target = getClosestThing(MAX_TARGET_DISTANCE);
+            for (PlayerListener listener : listeners) {
+                listener.onTargetChanged(target, oldTarget);
+            }
         }
         else {
             stepsToTargetUpdate--;
