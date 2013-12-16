@@ -6,11 +6,10 @@ import com.badlogic.gdx.graphics.Color;
 import org.flowutils.Maths;
 import org.ludumdare28.ground.Ground;
 import org.ludumdare28.ground.GroundImpl;
-import org.ludumdare28.input.InputConfiguration;
-import org.ludumdare28.things.Bush;
+import org.ludumdare28.things.bush.Bush;
 import org.ludumdare28.things.ImageAppearance;
-import org.ludumdare28.things.Player;
-import org.ludumdare28.things.Stone;
+import org.ludumdare28.things.player.Player;
+import org.ludumdare28.things.misc.Stone;
 import org.ludumdare28.things.berry.*;
 import org.ludumdare28.view.screens.WorldScreen;
 import org.ludumdare28.world.World;
@@ -50,7 +49,6 @@ public class Main {
         // Create the Game that will receive the application events
         Game game = new Game(width, height, textureAtlasFile);
         game.setCurrentScreen(worldScreen);
-        game.getInputHandler().addControllable(player.getControllable(), InputConfiguration.ARROWS_AND_WASD);
 
         // Configure libgdx and start the game
         final LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();

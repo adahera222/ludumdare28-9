@@ -3,7 +3,7 @@ package org.ludumdare28;
 import org.junit.Before;
 import org.junit.Test;
 import org.ludumdare28.ground.GroundImpl;
-import org.ludumdare28.things.Player;
+import org.ludumdare28.things.player.Player;
 import org.ludumdare28.world.World;
 import org.ludumdare28.world.WorldImpl;
 

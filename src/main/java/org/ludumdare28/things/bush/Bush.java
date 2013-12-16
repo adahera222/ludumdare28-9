@@ -1,6 +1,9 @@
-package org.ludumdare28.things;
+package org.ludumdare28.things.bush;
 
 import com.badlogic.gdx.graphics.Color;
+import org.ludumdare28.things.Harvestable;
+import org.ludumdare28.things.Thing;
+import org.ludumdare28.things.ThingBase;
 import org.ludumdare28.things.berry.BaseBerry;
 
 /**

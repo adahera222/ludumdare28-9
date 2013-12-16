@@ -6,7 +6,7 @@ package org.ludumdare28;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-import org.ludumdare28.things.Player;
+import org.ludumdare28.things.player.Player;
 
 public class PlayerStatTest {
 

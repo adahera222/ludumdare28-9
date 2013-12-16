@@ -1,6 +1,8 @@
-package org.ludumdare28.things;
+package org.ludumdare28.things.misc;
 
 import org.ludumdare28.Pic;
+import org.ludumdare28.things.ImageAppearance;
+import org.ludumdare28.things.ThingBase;
 import org.ludumdare28.things.aspects.DrinkableAspect;
 import org.ludumdare28.things.aspects.EdibleAspect;
 

@@ -28,6 +28,10 @@ public class InputHandler extends InputAdapter {
         controllables.put(controllable, inputConfiguration);
     }
 
+    public void removeControllable(Controllable controllable) {
+        controllables.remove(controllable);
+    }
+
     @Override public boolean keyDown(int keycode) {
         boolean processed = false;
 

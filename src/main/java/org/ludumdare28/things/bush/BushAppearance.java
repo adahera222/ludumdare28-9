@@ -1,10 +1,11 @@
-package org.ludumdare28.things;
+package org.ludumdare28.things.bush;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import org.ludumdare28.Pic;
+import org.ludumdare28.things.Appearance;
 
 /**
  *

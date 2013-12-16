@@ -1,6 +1,6 @@
 package org.ludumdare28.things.aspects;
 
-import org.ludumdare28.things.Player;
+import org.ludumdare28.things.player.Player;
 import org.ludumdare28.things.Thing;
 
 /**

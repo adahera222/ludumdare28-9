@@ -2,7 +2,7 @@ package org.ludumdare28;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -11,7 +11,6 @@ import org.flowutils.time.Time;
 import org.ludumdare28.input.InputHandler;
 import org.ludumdare28.view.ScreenView;
 import org.ludumdare28.view.screens.Screen;
-import org.ludumdare28.world.World;
 
 /**
  *
@@ -20,8 +19,8 @@ public class Game implements ApplicationListener {
     // Logging prefix
     public static final String LOG = Game.class.getSimpleName();
 
-    private final InputHandler inputHandler = new InputHandler();
-    private final ScreenView screenView = new ScreenView();
+    private final InputMultiplexer inputMultiplexer = new InputMultiplexer();
+    private final ScreenView screenView;
     private final int width;
     private final int height;
     private final String textureAtlasFile;
@@ -34,11 +33,16 @@ public class Game implements ApplicationListener {
 
     // Calculates the number of frames drawn per second
     private FPSLogger fpsLogger;
+    private final InputHandler inputHandler;
 
     public Game(int width, int height, String textureAtlasFile) {
         this.width = width;
         this.height = height;
         this.textureAtlasFile = textureAtlasFile;
+
+        inputHandler = new InputHandler();
+        inputMultiplexer.addProcessor(inputHandler);
+        screenView = new ScreenView(inputHandler, inputMultiplexer);
     }
 
     @Override public void create() {
@@ -50,7 +54,7 @@ public class Game implements ApplicationListener {
         spriteBatch =  new SpriteBatch();
 
         // Handle input
-        Gdx.input.setInputProcessor(inputHandler);
+        Gdx.input.setInputProcessor(inputMultiplexer);
     }
 
     @Override public void resize(int width, int height) {
@@ -105,9 +109,15 @@ public class Game implements ApplicationListener {
 
     public Screen getCurrentScreen() {return screenView.getCurrentScreen();}
 
-    public void setCurrentScreen(Screen currentScreen) {screenView.setCurrentScreen(currentScreen);}
+    public void setCurrentScreen(Screen currentScreen) {
+        screenView.setCurrentScreen(currentScreen);
+    }
 
     public InputHandler getInputHandler() {
         return inputHandler;
+    }
+
+    public InputMultiplexer getInputMultiplexer() {
+        return inputMultiplexer;
     }
 }

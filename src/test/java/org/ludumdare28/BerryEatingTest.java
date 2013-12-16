@@ -1,9 +1,8 @@
 package org.ludumdare28;
 
 import org.junit.Test;
-import org.ludumdare28.things.Player;
+import org.ludumdare28.things.player.Player;
 import org.ludumdare28.things.berry.*;
-import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 

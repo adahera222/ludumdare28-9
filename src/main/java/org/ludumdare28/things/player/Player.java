@@ -1,4 +1,4 @@
-package org.ludumdare28.things;
+package org.ludumdare28.things.player;
 
 import org.flowutils.Maths;
 import org.ludumdare28.input.Controllable;
@@ -6,13 +6,21 @@ import org.ludumdare28.input.ControllableImpl;
 import org.ludumdare28.input.InputAction;
 import org.ludumdare28.inventory.Inventory;
 import org.ludumdare28.inventory.InventoryImpl;
+import org.ludumdare28.things.Harvestable;
+import org.ludumdare28.things.Thing;
+import org.ludumdare28.things.ThingBase;
 import org.ludumdare28.things.aspects.EdibleAspect;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Author: Shiera
  */
 public class Player  extends ThingBase {
     private static final double MAX_EATING_DISTANCE = 1.2;
+    private static final double MAX_TARGET_DISTANCE = 1.2;
+    private static final int STEPS_BETWEEN_TARGET_UPDATES = 5;
     private String name;
     private double baseSpeed;
     private Inventory inventory;
@@ -34,6 +42,10 @@ public class Player  extends ThingBase {
     private static double HUNGER_INCREASE_PER_SECOND = 0.3;
     private static double THIRST_INCREASE_PER_SECOND = 1;
     private static double TIREDNESS_INCREASE_PER_SECOND = 0.05;
+
+    private int stepsToTargetUpdate = STEPS_BETWEEN_TARGET_UPDATES;
+
+    private List<PlayerListener> listeners = new ArrayList<PlayerListener>(3);
 
     private ControllableImpl controllable = new ControllableImpl();
 
@@ -79,9 +91,9 @@ public class Player  extends ThingBase {
     private void startEating() {
         // TODO: Always show the closest target in the UI
         // Find target
-        final Thing closestThing = getClosestThing(MAX_EATING_DISTANCE);
-        if (closestThing instanceof Harvestable) {
-            Harvestable harvestable = (Harvestable) closestThing;
+        //final Thing closestThing = getClosestThing(MAX_EATING_DISTANCE);
+        if (target instanceof Harvestable) {
+            Harvestable harvestable = (Harvestable) target;
             final Thing harvest = harvestable.harvest();
             if (harvest != null) {
                 final EdibleAspect edibleAspect = harvest.getEdibleAspect();
@@ -92,45 +104,77 @@ public class Player  extends ThingBase {
                     System.out.println("edibleAspect = " + edibleAspect);
 
                     // TODO: play eat sound
+
+                    // Notify listeners about eating
+                    for (PlayerListener listener : listeners) {
+                        listener.onPlayerAction(PlayerAction.EAT, target, null);
+                    }
                 }
             }
         }
     }
 
     public void changeHunger(double hungerAmount){
-        hunger += hungerAmount;
-        if (hunger < 0) hunger = 0;
-        if (hunger >= maxStat) alive = false;
-        if (hunger >= 50) hungerSpeedModifier = -(hunger-50)/2;
-        if (hunger < 50) hungerSpeedModifier = 0;
+        if (hungerAmount != 0) {
+            double oldValue = hunger;
+            hunger += hungerAmount;
+            if (hunger < 0) hunger = 0;
+            if (hunger >= maxStat) alive = false;
+            if (hunger >= 50) hungerSpeedModifier = -(hunger-50)/2;
+            if (hunger < 50) hungerSpeedModifier = 0;
+
+            for (PlayerListener listener : listeners) {
+                listener.onChanged(PlayerAttribute.HUNGER, hunger, oldValue, maxStat);
+            }
+        }
 
     }
 
     public void changeTiredness(double tirednessAmount){
-        tiredness += tirednessAmount;
-        if (tiredness < 0) tiredness = 0;
-        if (tiredness >= maxStat) awake = false;
-        if (tiredness >= 50) tirednessSpeedModifier = -(tiredness-50)/2;
-        if (tiredness < 50) tirednessSpeedModifier = 0;
+        if (tirednessAmount != 0) {
+            double oldValue = tiredness;
+            tiredness += tirednessAmount;
+            if (tiredness < 0) tiredness = 0;
+            if (tiredness >= maxStat) awake = false;
+            if (tiredness >= 50) tirednessSpeedModifier = -(tiredness-50)/2;
+            if (tiredness < 50) tirednessSpeedModifier = 0;
+
+            for (PlayerListener listener : listeners) {
+                listener.onChanged(PlayerAttribute.TIREDNESS, tiredness, oldValue, maxStat);
+            }
+        }
 
     }
 
     public void changeThirst(double thirstAmount){
-        thirst += thirstAmount;
-        if (thirst < 0) thirst = 0;
-        if (thirst >= maxStat) alive = false;
-        if (thirst >= 50) thirstSpeedModifier = -(thirst-50)/2;
-        if (thirst < 50) thirstSpeedModifier = 0;
+        if (thirstAmount != 0) {
+            double oldValue = thirst;
+            thirst += thirstAmount;
+            if (thirst < 0) thirst = 0;
+            if (thirst >= maxStat) alive = false;
+            if (thirst >= 50) thirstSpeedModifier = -(thirst-50)/2;
+            if (thirst < 50) thirstSpeedModifier = 0;
+
+            for (PlayerListener listener : listeners) {
+                listener.onChanged(PlayerAttribute.THIRST, thirst, oldValue, maxStat);
+            }
+        }
 
     }
 
     public void changeDamage(double damageAmount){
-        damage += damageAmount;
-        if (damage < 0) damage = 0;
-        if (damage >= maxStat) alive = false;
-        if (damage >= 50) damageSpeedModifier = -(damage-50)/2;
-        if (damage < 50) damageSpeedModifier = 0;
+        if (damageAmount != 0) {
+            double oldValue = damage;
+            damage += damageAmount;
+            if (damage < 0) damage = 0;
+            if (damage >= maxStat) alive = false;
+            if (damage >= 50) damageSpeedModifier = -(damage-50)/2;
+            if (damage < 50) damageSpeedModifier = 0;
 
+            for (PlayerListener listener : listeners) {
+                listener.onChanged(PlayerAttribute.POISON, damage, oldValue, maxStat);
+            }
+        }
     }
 
     public double getDamage() {
@@ -205,9 +249,29 @@ public class Player  extends ThingBase {
                getY() + dy);
 
         // TODO: Make sure player can't walk on water
+
+        // Update target
+        if (stepsToTargetUpdate <= 0) {
+            stepsToTargetUpdate = STEPS_BETWEEN_TARGET_UPDATES;
+            target = getClosestThing(MAX_TARGET_DISTANCE);
+        }
+        else {
+            stepsToTargetUpdate--;
+        }
+
     }
 
     public Controllable getControllable() {
         return controllable;
+    }
+
+    public void addListener(PlayerListener listener) {
+        if (!listeners.contains(listener)) {
+            listeners.add(listener);
+        }
+    }
+
+    public void removeListener(PlayerListener listener) {
+        listeners.remove(listener);
     }
 }

@@ -16,7 +16,9 @@ public enum Pic {
     BUSH2("bush2"),
     BUSH2HALF("bush2half"),
     BUSH2FULL("bush2full"),
-    ;
+    SPRING_BASE("springbase"),
+    SPRING_WATER_BASE("springwaterbase"),
+    SPRING_WATER("springwater1", "springwater2", "springwater3", "springwater4");
 
     private final MultiPic multiPic;
 

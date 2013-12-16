@@ -1,6 +1,5 @@
 package org.ludumdare28.ground;
 
-import org.ludumdare28.things.Player;
 import org.ludumdare28.things.Thing;
 
 /**

@@ -1,16 +1,25 @@
 package org.ludumdare28.view;
 
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import org.ludumdare28.View;
+import org.ludumdare28.input.InputHandler;
 import org.ludumdare28.view.screens.Screen;
 
 /**
  * A view that delegates rendering and updates to the currently selected screen.
  */
 public class ScreenView implements View {
+    private final InputHandler inputHandler;
+    private final InputMultiplexer inputMultiplexer;
     private Screen currentScreen;
+
+    public ScreenView(InputHandler inputHandler, InputMultiplexer inputMultiplexer) {
+        this.inputHandler = inputHandler;
+        this.inputMultiplexer = inputMultiplexer;
+    }
 
     public Screen getCurrentScreen() {
         return currentScreen;
@@ -30,7 +39,7 @@ public class ScreenView implements View {
 
         // Notify new screen that it is now open
         if (this.currentScreen != null) {
-            this.currentScreen.open();
+            this.currentScreen.open(inputHandler, inputMultiplexer);
         }
     }
 
@@ -40,5 +49,13 @@ public class ScreenView implements View {
 
     @Override public void render(TextureAtlas textureAtlas, SpriteBatch spriteBatch, OrthographicCamera camera) {
         if (currentScreen != null) currentScreen.render(textureAtlas, spriteBatch, camera);
+    }
+
+    public InputHandler getInputHandler() {
+        return inputHandler;
+    }
+
+    public InputMultiplexer getInputMultiplexer() {
+        return inputMultiplexer;
     }
 }
