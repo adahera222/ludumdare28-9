@@ -1,4 +1,4 @@
-package org.ludumdare28.things.misc;
+package org.ludumdare28.things.spring;
 
 import org.ludumdare28.Pic;
 import org.ludumdare28.things.ImageAppearance;
@@ -13,7 +13,7 @@ public class Spring extends ThingBase {
     public Spring() {
         super(new DrinkableAspect(Integer.MAX_VALUE));
 
-        setAppearance(new ImageAppearance(Pic.SPRING_BASE));
+        setAppearance(new SpringAppearance());
     }
 
 }

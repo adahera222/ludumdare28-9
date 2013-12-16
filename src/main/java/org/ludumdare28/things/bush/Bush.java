@@ -14,6 +14,8 @@ public class Bush extends ThingBase implements Harvestable {
     private final Class<? extends BaseBerry> berryType;
     private final Color berryColor;
     private final int bushAppearanceSeed;
+    private final double secondsForBerryToGrow = 60;
+    private double secondsSinceLastBerry = 0;
 
     private int maxBerries = 10;
     private int berriesLeft = (int) (Math.random() * maxBerries);
@@ -30,6 +32,14 @@ public class Bush extends ThingBase implements Harvestable {
     }
 
     @Override public void update(double timeSinceLastCall, double totalGameTime) {
+        if (berriesLeft < maxBerries){
+            secondsSinceLastBerry += timeSinceLastCall;
+            if (secondsSinceLastBerry >= secondsForBerryToGrow){
+                berriesLeft += 1;
+                secondsSinceLastBerry = 0;
+            }
+
+        }
         bushAppearance.setBerryAmount(getBerryPercentageLeft());
     }
 

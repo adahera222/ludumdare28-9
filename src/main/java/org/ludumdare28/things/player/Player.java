@@ -92,6 +92,7 @@ public class Player  extends ThingBase {
         // TODO: Always show the closest target in the UI
         // Find target
         //final Thing closestThing = getClosestThing(MAX_EATING_DISTANCE);
+        if (target == null) return;
         if (target instanceof Harvestable) {
             Harvestable harvestable = (Harvestable) target;
             final Thing harvest = harvestable.harvest();
@@ -111,6 +112,15 @@ public class Player  extends ThingBase {
                     }
                 }
             }
+        }
+        // if target = drinkable
+        if (target.getDrinkableAspect() != null){
+            target.getDrinkableAspect().drink(this);
+            //TODO: drinking sound
+            for (PlayerListener listener : listeners) {
+                listener.onPlayerAction(PlayerAction.DRINK, target, null);
+            }
+
         }
     }
 

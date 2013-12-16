@@ -186,6 +186,7 @@ public abstract class ThingBase implements Thing {
     }
 
     @Override public void update(double lastFrameDurationSeconds, double totalGameTime) {
+        if (appearance != null) appearance.update(lastFrameDurationSeconds, totalGameTime);
     }
 
     @Override

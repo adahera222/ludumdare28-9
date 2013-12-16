@@ -6,6 +6,7 @@ package org.ludumdare28.things.player;
 public enum PlayerAction {
     EAT("Eat", true, false),
     SLEEP("Sleep", false, false),
+    DRINK("Drink", true, false)
 
     ;
 

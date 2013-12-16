@@ -11,6 +11,7 @@ import org.ludumdare28.things.ImageAppearance;
 import org.ludumdare28.things.player.Player;
 import org.ludumdare28.things.misc.Stone;
 import org.ludumdare28.things.berry.*;
+import org.ludumdare28.things.spring.Spring;
 import org.ludumdare28.view.screens.WorldScreen;
 import org.ludumdare28.world.World;
 import org.ludumdare28.world.WorldImpl;
@@ -85,6 +86,10 @@ public class Main {
         addBushes(world, 50, HungerBerry.class, random);
         addBushes(world, 100, RandomBerry.class, random);
         addBushes(world, 50, TirednessBerry.class, random);
+
+
+        //Spring
+        world.addThing(new Spring(),1.2, 1.2);
 
         return world;
     }

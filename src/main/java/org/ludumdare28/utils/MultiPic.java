@@ -44,6 +44,7 @@ public class MultiPic {
         return texture;
     }
 
+
     public int getNumTextures() {
         return textureNames.size();
     }

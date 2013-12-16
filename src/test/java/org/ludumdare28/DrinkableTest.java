@@ -2,7 +2,7 @@ package org.ludumdare28;
 
 import org.junit.Test;
 import org.ludumdare28.things.player.Player;
-import org.ludumdare28.things.misc.Spring;
+import org.ludumdare28.things.spring.Spring;
 
 import static org.junit.Assert.assertEquals;
 
