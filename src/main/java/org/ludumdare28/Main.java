@@ -27,6 +27,8 @@ public class Main {
     private static final String TITLE = "Keep On Living";
     private static final int WORLD_SIZE_X = 50;
     private static final int WORLD_SIZE_Y = 50;
+    private static final double SPRING_X = WORLD_SIZE_X/4;
+    private static final double SPRING_Y = WORLD_SIZE_Y/2;
 
     public static void main(String[] args) {
 
@@ -90,10 +92,10 @@ public class Main {
 
 
         //Spring
-        world.addThing(new Spring(),WORLD_SIZE_X/4, WORLD_SIZE_Y/2);
+        world.addThing(new Spring(),SPRING_X,SPRING_Y);
 
         //Snake
-        addSnakes(world, 100, random);
+        addSnakes(world, 18, random);
 
 
         return world;
@@ -120,7 +122,7 @@ public class Main {
 
 
         for (int i = 0; i < numberOfSnakes; i++) {
-            world.addThing(new Snake(),
+            world.addThing(new Snake(SPRING_X,SPRING_Y),
                     random.nextDouble() * WORLD_SIZE_X,
                     random.nextDouble() * WORLD_SIZE_Y);
         }
