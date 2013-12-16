@@ -60,6 +60,10 @@ public class GroundImpl implements Ground {
     }
 
     @Override public Thing getClosestThing(Thing reference, double maxDistance) {
+        return getClosestThing(reference, maxDistance, Thing.class);
+    }
+
+    @Override public Thing getClosestThing(Thing reference, double maxDistance, Class<? extends Thing> thingType) {
         // Get reference location
         if (reference.getGround() != this) return null;
         final double refX = reference.getX();
@@ -72,38 +76,40 @@ public class GroundImpl implements Ground {
         for (int distance = 0; distance < maxDistance; distance++) {
             if (distance == 0) {
                 // At the center there is only one cell
-                closeThings.add(getCell(refX, refY).getClosestThing(reference, maxDistance));
+                closeThings.add(getCell(refX, refY).getClosestThing(reference, maxDistance, thingType));
             }
             else {
                 // Rectangle of neighbours, first cells on horizontal edges
                 for (int dx = -distance; dx <= distance; dx++) {
-                    getClosestThingFromCell(closeThings, reference, maxDistance, refX + dx, refY + distance);
-                    getClosestThingFromCell(closeThings, reference, maxDistance, refX + dx, refY - distance);
+                    getClosestThingFromCell(closeThings, reference, maxDistance, refX + dx, refY + distance, thingType);
+                    getClosestThingFromCell(closeThings, reference, maxDistance, refX + dx, refY - distance, thingType);
                 }
                 // Then cells on vertical edges, except the corners that we already checked as a part of the horizontal edges
                 for (int dy = -distance+1; dy <= distance-1; dy++) {
-                    getClosestThingFromCell(closeThings, reference, maxDistance, refX + distance, refY + dy);
-                    getClosestThingFromCell(closeThings, reference, maxDistance, refX - distance, refY - dy);
+                    getClosestThingFromCell(closeThings, reference, maxDistance, refX + distance, refY + dy, thingType);
+                    getClosestThingFromCell(closeThings, reference, maxDistance, refX - distance, refY - dy, thingType);
                 }
             }
         }
 
         // Find the closest thing and return it (or null if none found)
-        return GroundCellImpl.getClosestThingFromList(reference, closeThings, maxDistance);
+        return GroundCellImpl.getClosestThingFromList(reference, closeThings, maxDistance, thingType);
+
     }
 
     private void getClosestThingFromCell(List<Thing> closeThings,
                                          Thing reference,
                                          double maxDistance,
                                          final double cellX,
-                                         final double cellY) {
+                                         final double cellY,
+                                         Class<? extends Thing> thingType) {
         // Get the cell
         final GroundCell cell = getCell(cellX, cellY);
 
         // If cell is on map..
         if (cell != null) {
             // Get closest thing in cell
-            final Thing closestThing = cell.getClosestThing(reference, maxDistance);
+            final Thing closestThing = cell.getClosestThing(reference, maxDistance, thingType);
 
             // If there was a close thing in cell..
             if (closestThing != null) {
@@ -149,5 +155,8 @@ public class GroundImpl implements Ground {
         if (cellX < 0 || cellX >= sizeX ||
             cellY < 0 || cellY >= sizeY) return -1;
         else return cellY * sizeX + cellX;
+    }
+
+    @Override public void update(double timeSinceLastCall, double totalGameTime) {
     }
 }

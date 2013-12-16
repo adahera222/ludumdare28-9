@@ -26,6 +26,7 @@ public abstract class ThingBase implements Thing {
     private Set<ThingListener> listeners = new HashSet<ThingListener>(4);
     private World world;
     private String name;
+    private boolean canWalkAnywhere = false;
 
     protected ThingBase(double posX ,double posY , EdibleAspect edibleAspect, DrinkableAspect drinkableAspect) {
         this.posX = posX;
@@ -94,6 +95,14 @@ public abstract class ThingBase implements Thing {
     }
 
     @Override public void setPos(double x, double y) {
+        if (ground != null) {
+            final boolean oldTerrainPassable = ground.getCell(posX, posY).getTerrainType().isPassable();
+            final boolean newTerrainPassable = ground.getCell(x, y).getTerrainType().isPassable();
+
+            // Don't allow the player to walk into unpassable terrain, but allow them to walk out of there if they get there.
+            if (oldTerrainPassable && !newTerrainPassable) return;
+        }
+
         double oldX = posX;
         double oldY = posY;
         posX = x;
@@ -201,7 +210,11 @@ public abstract class ThingBase implements Thing {
     }
 
     @Override public Thing getClosestThing(double maxDistance) {
-        return getWorld().getGround().getClosestThing(this, maxDistance);
+        return getClosestThing(maxDistance, Thing.class);
+    }
+
+    @Override public Thing getClosestThing(double maxDistance, Class<? extends Thing> thingType) {
+        return getWorld().getGround().getClosestThing(this, maxDistance, thingType);
     }
 
     @Override public void update(double lastFrameDurationSeconds, double totalGameTime) {
@@ -219,5 +232,13 @@ public abstract class ThingBase implements Thing {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isCanWalkAnywhere() {
+        return canWalkAnywhere;
+    }
+
+    public void setCanWalkAnywhere(boolean canWalkAnywhere) {
+        this.canWalkAnywhere = canWalkAnywhere;
     }
 }

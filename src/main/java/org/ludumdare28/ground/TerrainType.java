@@ -9,22 +9,33 @@ import org.ludumdare28.utils.MultiPic;
  */
 public enum TerrainType {
 
-    DEEP_WATER("deepwater1", "deepwater2"),
-    WATER("water1", "water2", "water3", "water4"),
-    WATER_SHORE("watershore1", "watershore2", "watershore3", "watershore4", "watershore5"),
-    WET_SAND("wetsand1", "wetsand2"),
-    SAND("sand1", "sand2", "sand3"),
-    GRASS("grass1", "grass2", "grass3"),
-    JUNGLE("jungle1", "jungle2", "jungle3"),
-    HIGHLANDS("highlands1", "highlands2", "highlands3"),
-    ROCKY("rocky1", "rocky2", "rocky3"),
-    MOUNTAIN("mountain1", "mountain2", "mountain3"),
+    DEEP_WATER(0, false, true, 1.5, "deepwater1", "deepwater2", "deepwater3"),
+    WATER(0, false, true, 0.6, "water1", "water2", "water3"),
+    WATER_SHORE(0, false, true, 0.3, "watershore1", "watershore2", "watershore3", "watershore4", "watershore5"),
+    WET_SAND(1, true, false, 1, "wetsand1", "wetsand2", "wetsand3", "wetsand4"),
+    SAND(1, true, false, 1, "sand1", "sand2", "sand3"),
+    GRASS(3, true, false, 1, "drygrass1", "drygrass2", "drygrass3", "drygrass4"),
+    JUNGLE(3, true, false, 1, "junglegrass1", "junglegrass2", "junglegrass3", "junglegrass4"),
+    ROCKY(2, true, false, 1, "rock1", "rock2", "rock3", "rock4"),
 
     ;
 
     private final MultiPic multiPic;
+    private final boolean passable;
+    private final int layer;
+    private final boolean animated;
+    private final double animationSpeed;
 
-    private TerrainType(String textureName0, String ... textureNames) {
+    private TerrainType(int layer,
+                        boolean passable,
+                        boolean animated,
+                        double animationSpeed,
+                        String textureName0,
+                        String... textureNames) {
+        this.layer = layer;
+        this.passable = passable;
+        this.animated = animated;
+        this.animationSpeed = animationSpeed;
         multiPic = new MultiPic(textureName0, textureNames);
     }
 
@@ -44,5 +55,39 @@ public enum TerrainType {
 
     public MultiPic getMultiPic() {
         return multiPic;
+    }
+
+    public int getLayer() {
+        return layer;
+    }
+
+    public boolean isAnimated() {
+        return animated;
+    }
+
+    public static boolean layerInUse(int layer) {
+        for (TerrainType terrainType : TerrainType.values()) {
+            if (terrainType.getLayer() == layer) return true;
+        }
+
+        return false;
+    }
+
+    public static int getMaxLayer() {
+        int maxLayer = 0;
+        for (TerrainType terrainType : TerrainType.values()) {
+            final int layer = terrainType.getLayer();
+            if (layer > maxLayer) maxLayer = layer;
+        }
+
+        return maxLayer;
+    }
+
+    public double getAnimationSpeed() {
+        return animationSpeed;
+    }
+
+    public boolean isPassable() {
+        return passable;
     }
 }

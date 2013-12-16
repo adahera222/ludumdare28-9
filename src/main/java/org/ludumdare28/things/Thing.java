@@ -114,6 +114,14 @@ public interface Thing extends Updating {
     Thing getClosestThing(double maxDistance);
 
     /**
+     * @param maxDistance maximum distance to search within, specified as map squares.
+     * @param thingType the type of thing to search for.
+     * @return the closest other thing of the specified type to this thing, within the specified max distance,
+     * or null if there is nothing close (or if this thing is in an inventory).
+     */
+    Thing getClosestThing(double maxDistance, Class<? extends Thing> thingType);
+
+    /**
      * @return name of this thing or type of thing.
      */
     String getName();

@@ -93,16 +93,17 @@ public class Main {
         }
 
         // Bushes
-        addBushes(world, 100, FoodBerry.class, random);
-        addBushes(world, 50, HealthBerry.class, random);
-        addBushes(world, 50, CaffeineBerry.class, random);
-        addBushes(world, 40, PoisonBerry.class, random);
-        addBushes(world, 50, PoisonBerry.class, random);
-        addBushes(world, 30, PoisonBerry.class, random);
-        addBushes(world, 50, HungerBerry.class, random);
-        addBushes(world, 100, RandomBerry.class, random);
-        addBushes(world, 50, RandomBerry.class, random);
-        addBushes(world, 50, TirednessBerry.class, random);
+        addBushes(world, 100, FoodBerry.class, random, TerrainType.GRASS, TerrainType.JUNGLE, TerrainType.SAND);
+        addBushes(world, 50, HealthBerry.class, random, TerrainType.GRASS, TerrainType.JUNGLE);
+        addBushes(world, 50, CaffeineBerry.class, random, TerrainType.SAND);
+        addBushes(world, 40, PoisonBerry.class, random, TerrainType.GRASS, TerrainType.JUNGLE);
+        addBushes(world, 50, PoisonBerry.class, random, TerrainType.ROCKY);
+        addBushes(world, 30, PoisonBerry.class, random, TerrainType.GRASS, TerrainType.JUNGLE);
+        addBushes(world, 50, HungerBerry.class, random, TerrainType.GRASS, TerrainType.JUNGLE, TerrainType.SAND);
+        addBushes(world, 100, RandomBerry.class, random, TerrainType.GRASS, TerrainType.JUNGLE);
+        addBushes(world, 100, RandomBerry.class, random, TerrainType.SAND);
+        addBushes(world, 50, RandomBerry.class, random, TerrainType.ROCKY);
+        addBushes(world, 50, TirednessBerry.class, random, TerrainType.GRASS, TerrainType.JUNGLE);
 
 
         //Spring
@@ -120,7 +121,14 @@ public class Main {
 
         // Setup terrain altitude lookup
         TreeMap<Double, TerrainType> terrainLookup = new TreeMap<Double, TerrainType>();
-        terrainLookup.put(-100.0, TerrainType.SAND);
+        terrainLookup.put(-100.0, TerrainType.DEEP_WATER);
+        terrainLookup.put(-20.0, TerrainType.WATER);
+        terrainLookup.put(-10.0, TerrainType.WATER_SHORE);
+        terrainLookup.put(-1.0, TerrainType.WET_SAND);
+        terrainLookup.put(3.0, TerrainType.SAND);
+        terrainLookup.put(20.0, TerrainType.GRASS);
+        terrainLookup.put(40.0, TerrainType.JUNGLE);
+        terrainLookup.put(70.0, TerrainType.ROCKY);
 
 
         double mountainX = WORLD_SIZE_X * 0.7;
@@ -143,6 +151,10 @@ public class Main {
                 altitude += variance;
 
                 cell.setAltitude(altitude);
+
+                // Lookup terrain
+                final TerrainType terrain = terrainLookup.floorEntry(altitude).getValue();
+                cell.setTerrainType(terrain);
             }
         }
 
@@ -150,7 +162,7 @@ public class Main {
         return ground;
     }
 
-    private static void addBushes(World world, final int number, final Class<? extends BaseBerry> type, Random random) {
+    private static void addBushes(World world, final int number, final Class<? extends BaseBerry> type, Random random, TerrainType ... acceptableTerrains) {
         final int appearanceSeed = random.nextInt();
 
         Color berryColor = randomBrightColor(random);
@@ -159,10 +171,23 @@ public class Main {
         String name = StringUtils.createRandomName(random, randomBushPrefix, randomBushPostfix);
 
         for (int i = 0; i < number; i++) {
-            world.addThing(new Bush(type, berryColor, bushColor, appearanceSeed, name),
-                           random.nextDouble() * WORLD_SIZE_X,
-                           random.nextDouble() * WORLD_SIZE_Y);
+            final double x = random.nextDouble() * WORLD_SIZE_X;
+            final double y = random.nextDouble() * WORLD_SIZE_Y;
+
+            // Only add in acceptable terrain types
+            final TerrainType terrainType = world.getGround().getCell(x, y).getTerrainType();
+            if (contains(acceptableTerrains, terrainType)) {
+                world.addThing(new Bush(type, berryColor, bushColor, appearanceSeed, name), x, y);
+            }
         }
+    }
+
+    private static boolean contains(TerrainType[] acceptableTerrains, final TerrainType terrainType) {
+        for (TerrainType acceptableTerrain : acceptableTerrains) {
+            if (terrainType == acceptableTerrain) return true;
+        }
+
+        return false;
     }
 
     private static void addSnakes(World world, final int numberOfSnakes, Random random) {

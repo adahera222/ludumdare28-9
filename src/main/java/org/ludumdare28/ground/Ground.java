@@ -1,11 +1,13 @@
 package org.ludumdare28.ground;
 
+import org.ludumdare28.Updating;
 import org.ludumdare28.things.Thing;
+import org.ludumdare28.things.ThingBase;
 
 /**
  * Information about the ground terrain and all things located on the ground.
  */
-public interface Ground {
+public interface Ground extends Updating {
 
     /**
      * Get information about one location on the ground.
@@ -35,4 +37,6 @@ public interface Ground {
      * or null if there is nothing close.
      */
     Thing getClosestThing(Thing reference, double maxDistance);
+
+    Thing getClosestThing(Thing reference, double maxDistance, Class<? extends Thing> thingType);
 }

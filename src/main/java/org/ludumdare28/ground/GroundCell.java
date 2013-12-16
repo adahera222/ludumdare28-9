@@ -2,6 +2,7 @@ package org.ludumdare28.ground;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import org.ludumdare28.Updating;
 import org.ludumdare28.things.Thing;
 
 import java.util.Collection;
@@ -35,11 +36,11 @@ public interface GroundCell {
 
     int getRandomSeed();
 
-    TextureRegion getTexture(TextureAtlas textureAtlas);
+    TextureRegion getTexture(TextureAtlas textureAtlas, double timeSinceLastCall);
 
     void sortThingsByDistance();
 
-    Thing getClosestThing(Thing reference, double maxDistance);
+    Thing getClosestThing(Thing reference, double maxDistance, Class<? extends Thing> thingType);
 
     double getAltitude();
 

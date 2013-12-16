@@ -85,6 +85,7 @@ public class WorldImpl implements World {
         thingsToDelete.clear();
 
         // Update
+        ground.update(timeSinceLastCall, totalGameTime);
         for (Thing thing : things) {
             thing.update(timeSinceLastCall, totalGameTime);
         }
