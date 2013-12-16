@@ -86,6 +86,8 @@ public class Player  extends ThingBase {
                 }
             }
         });
+
+        setName("Adventurer");
     }
 
     private void startEating() {

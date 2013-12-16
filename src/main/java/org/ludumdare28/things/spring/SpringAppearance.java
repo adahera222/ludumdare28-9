@@ -52,7 +52,7 @@ public class SpringAppearance implements Appearance {
         float sizeX = texture.getRegionWidth()*1.5f;
         float sizeY = texture.getRegionHeight()*1.5f;
         float x = screenX - sizeX/2;
-        float y = screenY + sizeY/6;
+        float y = screenY - sizeY * 0.0f;
         spriteBatch.draw(texture, x, y, sizeX, sizeY);
     }
 

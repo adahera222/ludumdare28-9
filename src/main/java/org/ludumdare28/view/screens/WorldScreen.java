@@ -3,17 +3,14 @@ package org.ludumdare28.view.screens;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Interpolation;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import org.ludumdare28.SkinFactory;
-import org.ludumdare28.ground.GroundCell;
-import org.ludumdare28.ground.TerrainType;
 import org.ludumdare28.ground.view.GroundView;
 import org.ludumdare28.input.InputConfiguration;
 import org.ludumdare28.input.InputHandler;
@@ -39,6 +36,7 @@ public class WorldScreen implements Screen {
 
     private Stage stage;
     private AppearanceViewUi targetView;
+    private BitmapFont font;
 
     public WorldScreen(World world) {
         this.world = world;
@@ -91,6 +89,7 @@ public class WorldScreen implements Screen {
 
     private Stage createStage(TextureAtlas textureAtlas, SpriteBatch spriteBatch, OrthographicCamera camera) {
         final Skin skin = SkinFactory.createSkin();
+        font = new BitmapFont();
 
         final Stage stage = new Stage(camera.viewportWidth, camera.viewportHeight, true, spriteBatch);
 
@@ -118,6 +117,7 @@ public class WorldScreen implements Screen {
         */
 
         float uiHeight = 100;
+        float targetViewWidth = 128;
 
         Table attributeTable = new Table(skin);
         attributeTable.setBackground(skin.newDrawable("white", Color.BLACK));
@@ -128,7 +128,7 @@ public class WorldScreen implements Screen {
         table.add(attributeTable);
 
         // Add an image actor. Have to set the size, else it would be the size of the drawable (which is the 1x1 texture).
-        targetView = new AppearanceViewUi(uiHeight, uiHeight, textureAtlas);
+        targetView = new AppearanceViewUi(font, targetViewWidth, uiHeight, textureAtlas);
         table.add(targetView);
 
         // Listen to player

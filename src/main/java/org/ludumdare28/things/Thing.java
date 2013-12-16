@@ -112,4 +112,9 @@ public interface Thing extends Updating {
      * (or if this thing is in an inventory).
      */
     Thing getClosestThing(double maxDistance);
+
+    /**
+     * @return name of this thing or type of thing.
+     */
+    String getName();
 }

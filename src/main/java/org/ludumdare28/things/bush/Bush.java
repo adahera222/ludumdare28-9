@@ -22,13 +22,14 @@ public class Bush extends ThingBase implements Harvestable {
 
     private BushAppearance bushAppearance;
 
-    public Bush(Class<? extends BaseBerry> berryType, Color berryColor, Color bushColor, int bushAppearanceSeed) {
+    public Bush(Class<? extends BaseBerry> berryType, Color berryColor, Color bushColor, int bushAppearanceSeed, String name) {
         this.berryType = berryType;
         this.berryColor = berryColor;
         this.bushAppearanceSeed = bushAppearanceSeed;
 
         bushAppearance = new BushAppearance(bushAppearanceSeed, berryColor, bushColor);
         setAppearance(bushAppearance);
+        setName(name);
     }
 
     @Override public void update(double timeSinceLastCall, double totalGameTime) {

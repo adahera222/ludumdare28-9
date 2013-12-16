@@ -17,6 +17,10 @@ public class Stone extends ThingBase {
         this(new Random());
     }
 
+    @Override public String getName() {
+        return "Stone";
+    }
+
     public Stone(int randomSeed) {
         this(new Random(randomSeed));
     }

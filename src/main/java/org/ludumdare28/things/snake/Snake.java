@@ -5,6 +5,11 @@ import org.ludumdare28.things.ImageAppearance;
 import org.ludumdare28.things.Thing;
 import org.ludumdare28.things.ThingBase;
 import org.ludumdare28.things.player.Player;
+import org.ludumdare28.utils.StringUtils;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 import static java.lang.Math.*;
 
@@ -12,6 +17,11 @@ import static java.lang.Math.*;
  * Author: Shiera
  */
 public class Snake extends ThingBase {
+
+    private static final List<String> namePrefix = Arrays.asList("Huggo ", "Bitty ", "Snappy ", "Slith ", "Igor ", "Mary ","Ripper ", "Killy ", "Rippy ", "Hissy ", "Wishy ", "Sneaky ", "Riggy ", "Slinky ");
+    private static final List<String> namePostfix = Arrays.asList("the Snake", "the Snake", "the Snake", "the Wyrm", "Greentail", "the Swift", "the Squeaky", "the Brave", "the Silent", "the Fast", "the Slow", "the Cold");
+
+
     private boolean hasPoison;
     private double poisonRegenTime;
     private double poisonAmount;
@@ -33,7 +43,7 @@ public class Snake extends ThingBase {
     private boolean farFromHome;
     private boolean closeToHome;
 
-    public Snake(double homeX, double homeY){
+    public Snake(double homeX, double homeY, Random random){
         hasPoison = true;
         poisonRegenTime = 60 + (random()*60);
         poisonAmount = 10 + random()*15;
@@ -42,6 +52,8 @@ public class Snake extends ThingBase {
         setAppearance(new ImageAppearance(Pic.SPRING_WATER));
         this.homeX = homeX;
         this.homeY = homeY;
+
+        setName(StringUtils.createRandomName(random, namePrefix, namePostfix));
     }
 
     @Override
