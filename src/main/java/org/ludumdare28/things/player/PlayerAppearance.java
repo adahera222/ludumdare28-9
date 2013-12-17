@@ -32,20 +32,25 @@ public class PlayerAppearance implements Appearance{
 
         @Override
         public void render(TextureAtlas textureAtlas, SpriteBatch spriteBatch, float screenX, float screenY) {
-                // PICTURE OF EATING
-                if (thisPlayer.isEating()){
-                    drawPic(textureAtlas, spriteBatch, screenX, screenY, Pic.EATING_HUMAN.getTexture(textureAtlas, pictureFrame));
-                }
-                // weak (=tired, wounded, hungry)
-                else if (thisPlayer.isWeak()){
-                    drawPic(textureAtlas, spriteBatch, screenX, screenY, Pic.WOUNDED_HUMAN.getTexture(textureAtlas, pictureFrame));
+            //dead
+            if (!thisPlayer.isAlive()){
+                drawPic(textureAtlas, spriteBatch, screenX, screenY, Pic.DEAD_HUMAN.getTexture(textureAtlas, pictureFrame));
 
-                }
-                // normal
-                else{
-                    drawPic(textureAtlas, spriteBatch, screenX, screenY, Pic.HUMAN.getTexture(textureAtlas, pictureFrame));
+            }
+            // PICTURE OF EATING
+            else if (thisPlayer.isEating()){
+                drawPic(textureAtlas, spriteBatch, screenX, screenY, Pic.EATING_HUMAN.getTexture(textureAtlas, pictureFrame));
+            }
+            // weak (=tired, wounded, hungry)
+            else if (thisPlayer.isWeak()){
+                drawPic(textureAtlas, spriteBatch, screenX, screenY, Pic.WOUNDED_HUMAN.getTexture(textureAtlas, pictureFrame));
 
-                }
+            }
+            // normal
+            else{
+                drawPic(textureAtlas, spriteBatch, screenX, screenY, Pic.HUMAN.getTexture(textureAtlas, pictureFrame));
+
+            }
 
 
         }
@@ -71,11 +76,11 @@ public class PlayerAppearance implements Appearance{
 
         private void drawPic(TextureAtlas textureAtlas, SpriteBatch spriteBatch, float screenX, float screenY, TextureRegion texture) {
 
-            float sizeX = texture.getRegionWidth()*2;
-            float sizeY = texture.getRegionHeight()*3;
-            float y = screenY - sizeY * 0.25f;
+            float sizeX = texture.getRegionWidth();
+            float sizeY = texture.getRegionHeight();
+            float y = screenY ;
 
-            if (thisPlayer.isMovingLeft()){
+            if (!thisPlayer.isMovingLeft()){
                 float x = screenX - sizeX/2;
                 spriteBatch.draw(texture, x, y, sizeX, sizeY);
             }
