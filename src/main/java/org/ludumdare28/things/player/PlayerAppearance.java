@@ -32,20 +32,25 @@ public class PlayerAppearance implements Appearance{
 
         @Override
         public void render(TextureAtlas textureAtlas, SpriteBatch spriteBatch, float screenX, float screenY) {
-                // PICTURE OF EATING
-                if (thisPlayer.isEating()){
-                    drawPic(textureAtlas, spriteBatch, screenX, screenY, Pic.EATING_HUMAN.getTexture(textureAtlas, pictureFrame));
-                }
-                // weak (=tired, wounded, hungry)
-                else if (thisPlayer.isWeak()){
-                    drawPic(textureAtlas, spriteBatch, screenX, screenY, Pic.WOUNDED_HUMAN.getTexture(textureAtlas, pictureFrame));
+            //dead
+            if (!thisPlayer.isAlive()){
+                drawPic(textureAtlas, spriteBatch, screenX, screenY, Pic.DEAD_HUMAN.getTexture(textureAtlas, pictureFrame));
 
-                }
-                // normal
-                else{
-                    drawPic(textureAtlas, spriteBatch, screenX, screenY, Pic.HUMAN.getTexture(textureAtlas, pictureFrame));
+            }
+            // PICTURE OF EATING
+            else if (thisPlayer.isEating()){
+                drawPic(textureAtlas, spriteBatch, screenX, screenY, Pic.EATING_HUMAN.getTexture(textureAtlas, pictureFrame));
+            }
+            // weak (=tired, wounded, hungry)
+            else if (thisPlayer.isWeak()){
+                drawPic(textureAtlas, spriteBatch, screenX, screenY, Pic.WOUNDED_HUMAN.getTexture(textureAtlas, pictureFrame));
 
-                }
+            }
+            // normal
+            else{
+                drawPic(textureAtlas, spriteBatch, screenX, screenY, Pic.HUMAN.getTexture(textureAtlas, pictureFrame));
+
+            }
 
 
         }
@@ -61,7 +66,7 @@ public class PlayerAppearance implements Appearance{
 
                 }
 
-                if (pictureFrame > 4) pictureFrame = 0;
+                if (pictureFrame > 3) pictureFrame = 0;
             }
             lastX = thisPlayer.getX();
             lastY = thisPlayer.getY();

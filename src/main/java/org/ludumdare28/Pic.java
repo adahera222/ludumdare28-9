@@ -24,7 +24,8 @@ public enum Pic {
     BITING_SNAKE_TOP("snakeBiteTop1", "snakeBiteTop2"),
     HUMAN("snakeBiteBase1", "snakeBiteBase2"),
     WOUNDED_HUMAN("snakeBase1", "snakeBase2"),
-    EATING_HUMAN("snakeBase3");
+    EATING_HUMAN("snakeBase3"),
+    DEAD_HUMAN("snakeBase1", "snakeBase2");
 
 
 
