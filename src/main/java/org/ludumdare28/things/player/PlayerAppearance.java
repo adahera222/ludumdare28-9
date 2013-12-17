@@ -66,7 +66,7 @@ public class PlayerAppearance implements Appearance{
 
                 }
 
-                if (pictureFrame > 3) pictureFrame = 0;
+                if (pictureFrame > 4) pictureFrame = 0;
             }
             lastX = thisPlayer.getX();
             lastY = thisPlayer.getY();
@@ -76,11 +76,11 @@ public class PlayerAppearance implements Appearance{
 
         private void drawPic(TextureAtlas textureAtlas, SpriteBatch spriteBatch, float screenX, float screenY, TextureRegion texture) {
 
-            float sizeX = texture.getRegionWidth()*2;
-            float sizeY = texture.getRegionHeight()*3;
-            float y = screenY - sizeY * 0.25f;
+            float sizeX = texture.getRegionWidth();
+            float sizeY = texture.getRegionHeight();
+            float y = screenY ;
 
-            if (thisPlayer.isMovingLeft()){
+            if (!thisPlayer.isMovingLeft()){
                 float x = screenX - sizeX/2;
                 spriteBatch.draw(texture, x, y, sizeX, sizeY);
             }
