@@ -64,7 +64,7 @@ public class Game implements ApplicationListener {
 
     @Override public void render() {
         // output the current FPS
-        fpsLogger.log();
+        //fpsLogger.log();
 
         // Update
         doUpdate();
