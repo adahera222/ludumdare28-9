@@ -56,11 +56,11 @@ public class DeathScreen implements Screen {
             notice++;
             if (notice == 1) {
                 table.row();
-                table.add(new Label("That was your only life", skin));
+                table.add(new Label("There are no extra lives.", skin));
             }
             else if (notice == 2) {
                 table.row();
-                table.add(new Label("Now go do something awesome!", skin));
+                table.add(new Label("Now go do something awesome with the rest of your life!", skin));
             }
             else if (notice == 3) {
                 table.row();
