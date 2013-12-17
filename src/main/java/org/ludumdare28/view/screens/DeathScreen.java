@@ -56,15 +56,19 @@ public class DeathScreen implements Screen {
             notice++;
             if (notice == 1) {
                 table.row();
-                table.add(new Label("There are no extra lives.", skin));
+                table.add(new Label("You survived " + (int)(totalGameTime/60) + " days.", skin));
             }
             else if (notice == 2) {
                 table.row();
-                table.add(new Label("Now go do something awesome with the rest of your life!", skin));
+                table.add(new Label("There are no extra lives.", skin));
             }
             else if (notice == 3) {
                 table.row();
-                final TextButton closeButton = new TextButton("Close Game", skin);
+                table.add(new Label("Now go do something awesome with the rest of your life!", skin));
+            }
+            else if (notice == 4) {
+                table.row();
+                final TextButton closeButton = new TextButton("  Close Game  ", skin);
                 closeButton.addListener(new ClickListener() {
                     @Override public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
                         quit = true;

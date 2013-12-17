@@ -36,7 +36,7 @@ public class Main {
     private static final double SPRING_X = WORLD_SIZE_X * 0.6;
     private static final double SPRING_Y = WORLD_SIZE_Y * 0.5;
 
-    private static List<String> randomBushPrefix = Arrays.asList("Cloud", "Fire", "Sea", "Desert", "YumYum ", "Strange", "Jinga", "Zing", "Hell", "Bing", "Zugzug", "Gor", "Doge", "Rash", "Mort", "Devil", "Death", "Wonder", "Burr", "Smoke", "Angel", "Heavens", "Island");
+    private static List<String> randomBushPrefix = Arrays.asList("Cloud", "Fire", "Sea", "Desert", "YumYum ", "Strange", "Jinga", "Zing", "Hell", "Bing", "Zugzug", "Gor", "Doge", "Rash", "Mort", "Devil", "Death", "Wonder", "Burr", "Smoke", "Angel", "Heavens", "Island", "Sailors", "Blood", "Gold");
     private static List<String> randomBushPostfix = Arrays.asList("berry", "berry", "berry", "berry", "bush", "bush", "fruit", "fruit", "grape", "grape", "thorn", "rose", "weed", "grass", "plant", "plant", "leaf");
 
     public static void main(String[] args) {
@@ -94,7 +94,7 @@ public class Main {
         // Add things
 
         // Stones
-        for (int i = 0; i < 500; i++) {
+        for (int i = 0; i < 700; i++) {
             world.addThing(new Stone(random),
                            random.nextDouble() * WORLD_SIZE_X,
                            random.nextDouble() * WORLD_SIZE_Y);
@@ -103,10 +103,10 @@ public class Main {
         // Bushes
         addBushes(world, 100, FoodBerry.class, random, TerrainType.GRASS, TerrainType.JUNGLE, TerrainType.SAND);
         addBushes(world, 50, HealthBerry.class, random, TerrainType.GRASS, TerrainType.JUNGLE);
-        addBushes(world, 50, CaffeineBerry.class, random, TerrainType.SAND);
+        addBushes(world, 100, CaffeineBerry.class, random, TerrainType.SAND, TerrainType.WET_SAND);
         addBushes(world, 40, PoisonBerry.class, random, TerrainType.GRASS, TerrainType.JUNGLE);
         addBushes(world, 30, PoisonBerry.class, random, TerrainType.GRASS, TerrainType.JUNGLE);
-        addBushes(world, 30, WaterBerry.class, random, TerrainType.GRASS, TerrainType.JUNGLE);
+        addBushes(world, 50, WaterBerry.class, random, TerrainType.SAND, TerrainType.GRASS);
         addBushes(world, 50, HungerBerry.class, random, TerrainType.GRASS, TerrainType.JUNGLE, TerrainType.SAND);
         addBushes(world, 100, RandomBerry.class, random, TerrainType.GRASS, TerrainType.JUNGLE);
         addBushes(world, 100, RandomBerry.class, random, TerrainType.SAND);
@@ -130,12 +130,12 @@ public class Main {
 
         // Setup terrain altitude lookup
         TreeMap<Double, TerrainType> terrainLookup = new TreeMap<Double, TerrainType>();
-        terrainLookup.put(-100000.0, TerrainType.DEEP_WATER);
-        terrainLookup.put(-15.0, TerrainType.WATER);
-        terrainLookup.put(-8.0, TerrainType.WATER_SHORE);
+        terrainLookup.put(-10000000.0, TerrainType.DEEP_WATER);
+        terrainLookup.put(-22.0, TerrainType.WATER);
+        terrainLookup.put(-12.0, TerrainType.WATER_SHORE);
         terrainLookup.put(0.0, TerrainType.WET_SAND);
-        terrainLookup.put(5.0, TerrainType.SAND);
-        terrainLookup.put(20.0, TerrainType.GRASS);
+        terrainLookup.put(7.0, TerrainType.SAND);
+        terrainLookup.put(22.0, TerrainType.GRASS);
         terrainLookup.put(40.0, TerrainType.JUNGLE);
         terrainLookup.put(70.0, TerrainType.ROCKY);
 
@@ -172,9 +172,9 @@ public class Main {
                 // Slope down at edges
                 double edgeDistanceX = Math.min(x, WORLD_SIZE_X - x);
                 double edgeDistanceY = Math.min(y, WORLD_SIZE_Y - y);
-                double edgeDistance = edgeDistanceX * edgeDistanceY;
-                double edgeAdjust = Math.max(8 - edgeDistance, 0) * 5;
-                altitude += edgeAdjust;
+                double edgeDistance = Math.min(edgeDistanceX, edgeDistanceY);
+                double edgeAdjust = Math.max(15 - edgeDistance, 0) * 2;
+                altitude -= edgeAdjust;
 
                 // Create a path to the spring
                 final double pathY = SPRING_Y + (x - SPRING_X) * 0.25;
