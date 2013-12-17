@@ -42,9 +42,11 @@ public class WorldScreen implements Screen {
     private AppearanceViewUi targetView;
     private BitmapFont font;
     private static final java.util.List<String> introTexts = Arrays.asList(
-            "You have been stranded on a deserted island and now you have to stay alive.",
-            "You can walk with W,S,A,D or the ARROW KEYS and you eat or drink the targeted object with SPACE.",
-            "Go explore the island!  Hopefully there is some fresh water here."
+            "You survived a shipwreck and floated ashore on this deserted island",
+            "You can walk with W,S,A,D or the ARROW KEYS",
+            "You eat or drink the targeted object with SPACE.",
+            "Go explore the island!  Hopefully there is some fresh water here.",
+            "Stay alive as long as you can..."
     );
 
     private int introTextToShow = 0;
