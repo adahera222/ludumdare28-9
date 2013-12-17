@@ -91,7 +91,7 @@ public class WorldScreen implements Screen {
                 }
                 else {
                     final String text = introTexts.get(introTextToShow);
-                    helpText.setText(text);
+                    helpText.setText("  " + text + "  ");
                     introTextToShow++;
                     timeToNextIntroText =INTRO_DELAY;
                 }
