@@ -121,4 +121,11 @@
     </build>
 
 
+
+
+    <scm>
+        <url>https://github.com/zzorn/ludumdare28</url>
+        <developerConnection>scm:git:git@github.com:zzorn/ludumdare28.git</developerConnection>
+    </scm>
+
 </project>
