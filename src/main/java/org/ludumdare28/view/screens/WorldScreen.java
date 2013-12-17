@@ -29,6 +29,7 @@ import java.util.Map;
  *
  */
 public class WorldScreen implements Screen {
+    private static final int INTRO_DELAY = 5;
     private final World world;
 
     private GroundView groundView;
@@ -41,12 +42,14 @@ public class WorldScreen implements Screen {
     private AppearanceViewUi targetView;
     private BitmapFont font;
     private static final java.util.List<String> introTexts = Arrays.asList(
-            "You have been stranded on an island and now you have to stay alive.",
-            "You can walk whit W,S,A,D or the ARROW KEYS and you eat or drink the targeted object whit SPACE.",
-            "Feel free to explore the island and try the berries, hopefully there is some fresh water here.",
-            "Beside your attribute bar you can see a picture of the thing you are targeting."
-
+            "You have been stranded on a deserted island and now you have to stay alive.",
+            "You can walk with W,S,A,D or the ARROW KEYS and you eat or drink the targeted object with SPACE.",
+            "Go explore the island!  Hopefully there is some fresh water here."
     );
+
+    private int introTextToShow = 0;
+    private double timeToNextIntroText = INTRO_DELAY;
+    private Label helpText;
 
     public WorldScreen(World world) {
         this.world = world;
@@ -74,6 +77,23 @@ public class WorldScreen implements Screen {
         // Check for player death
         if (world.getPlayer().isTrulyDead()) {
             screenView.setCurrentScreen(new DeathScreen());
+        }
+
+        // Show intro text
+        if (introTextToShow <= introTexts.size()) {
+            timeToNextIntroText-= lastStepDurationSeconds;
+            if (timeToNextIntroText <= 0) {
+                if (introTextToShow >= introTexts.size()) {
+                    helpText.setText("");
+                }
+                else {
+                    final String text = introTexts.get(introTextToShow);
+                    helpText.setText(text);
+                    introTextToShow++;
+                    timeToNextIntroText =INTRO_DELAY;
+                }
+            }
+
         }
     }
 
@@ -111,12 +131,21 @@ public class WorldScreen implements Screen {
 
         // Create a table that fills the screen. Everything else will go inside this table.
         Table table = new Table();
+
+
         table.setFillParent(true);
+        helpText = new Label("", skin);
+        table.center().add(helpText).spaceBottom(20).colspan(1);
+        table.row();
         table.bottom();
         stage.addActor(table);
 
         float uiHeight = 100;
         float targetViewWidth = 128;
+
+        Table uiTable = new Table();
+        uiTable.bottom();
+        table.add(uiTable);
 
         Table attributeTable = new Table(skin);
         attributeTable.setBackground(skin.newDrawable("white", Color.BLACK));
@@ -124,11 +153,11 @@ public class WorldScreen implements Screen {
         for (PlayerAttribute attribute : PlayerAttribute.values()) {
             createAttributeView(attributeTable, skin, attribute, 50, 100, uiHeight / PlayerAttribute.values().length);
         }
-        table.add(attributeTable);
+        uiTable.add(attributeTable);
 
         // Add an image actor. Have to set the size, else it would be the size of the drawable (which is the 1x1 texture).
         targetView = new AppearanceViewUi(font, targetViewWidth, uiHeight, textureAtlas);
-        table.add(targetView);
+        uiTable.add(targetView);
 
         // Listen to player
         world.getPlayer().addListener(new PlayerListener() {
