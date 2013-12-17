@@ -55,7 +55,7 @@ public class Player  extends ThingBase {
 
     private ControllableImpl controllable = new ControllableImpl();
 
-    private double timeToTrulyDead = 3;
+    private double timeToTrulyDead = 6;
 
     /**
     -the player have a name that can be given in the beginning of the game.
@@ -116,9 +116,6 @@ public class Player  extends ThingBase {
                 if (edibleAspect != null) {
                     edibleAspect.eat(this);
                     eating = true;
-
-                    System.out.println("Player.startEating");
-                    System.out.println("edibleAspect = " + edibleAspect);
 
                     // TODO: play eat sound
 

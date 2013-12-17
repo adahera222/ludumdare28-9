@@ -136,7 +136,6 @@ public class Snake extends ThingBase {
 
     public void bite(Player player){
         player.changePoison(poisonAmount);
-        System.out.println("snakebite");
         hasPoison = false;
     }
 

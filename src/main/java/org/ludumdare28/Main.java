@@ -94,7 +94,7 @@ public class Main {
         // Add things
 
         // Stones
-        for (int i = 0; i < 700; i++) {
+        for (int i = 0; i < 450; i++) {
             world.addThing(new Stone(random),
                            random.nextDouble() * WORLD_SIZE_X,
                            random.nextDouble() * WORLD_SIZE_Y);

@@ -29,7 +29,7 @@ public enum Pic {
     HUMAN("pirate_walk1", "pirate_stand", "pirate_walk2","pirate_stand"),
     WOUNDED_HUMAN("pirate_sick_walk1", "pirate_sick_stand", "pirate_sick_walk2","pirate_sick_stand"),
     EATING_HUMAN("pirate_eat1", "pirate_eat2"),
-    DEAD_HUMAN("pirate_sick_stand");
+    DEAD_HUMAN("pirate_dead");
 
 
 
