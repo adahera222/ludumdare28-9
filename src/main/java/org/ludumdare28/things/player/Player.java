@@ -146,8 +146,10 @@ public class Player  extends ThingBase {
             hunger += hungerAmount;
             if (hunger < 0) hunger = 0;
             if (hunger >= maxStat) alive = false;
+            if (hunger > maxStat) hunger = 100;
             if (hunger >= 50) hungerSpeedModifier = -(hunger-50)/2;
             if (hunger < 50) hungerSpeedModifier = 0;
+
 
             for (PlayerListener listener : listeners) {
                 listener.onChanged(PlayerAttribute.HUNGER, hunger, oldValue, maxStat);
@@ -162,6 +164,7 @@ public class Player  extends ThingBase {
             tiredness += tirednessAmount;
             if (tiredness < 0) tiredness = 0;
             if (tiredness >= maxStat) awake = false;
+            if (tiredness >maxStat) tiredness = maxStat;
             if (tiredness >= 50) tirednessSpeedModifier = -(tiredness-50)/2;
             if (tiredness < 50) tirednessSpeedModifier = 0;
 
@@ -178,6 +181,7 @@ public class Player  extends ThingBase {
             thirst += thirstAmount;
             if (thirst < 0) thirst = 0;
             if (thirst >= maxStat) alive = false;
+            if (thirst > maxStat) thirst = maxStat;
             if (thirst >= 50) thirstSpeedModifier = -(thirst-50)/2;
             if (thirst < 50) thirstSpeedModifier = 0;
 
@@ -194,6 +198,7 @@ public class Player  extends ThingBase {
             damage += damageAmount;
             if (damage < 0) damage = 0;
             if (damage >= maxStat) alive = false;
+            if (damage > maxStat) damage = maxStat;
             if (damage >= 50) damageSpeedModifier = -(damage-50)/2;
             if (damage < 50) damageSpeedModifier = 0;
 
