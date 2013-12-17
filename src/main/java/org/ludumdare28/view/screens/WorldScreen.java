@@ -21,6 +21,7 @@ import org.ludumdare28.things.player.PlayerListener;
 import org.ludumdare28.view.ScreenView;
 import org.ludumdare28.world.World;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,6 +40,13 @@ public class WorldScreen implements Screen {
     private Stage stage;
     private AppearanceViewUi targetView;
     private BitmapFont font;
+    private static final java.util.List<String> introTexts = Arrays.asList(
+            "You have been stranded on an island and now you have to stay alive.",
+            "You can walk whit W,S,A,D or the ARROW KEYS and you eat or drink the targeted object whit SPACE.",
+            "Feel free to explore the island and try the berries, hopefully there is some fresh water here.",
+            "Beside your attribute bar you can see a picture of the thing you are targeting."
+
+    );
 
     public WorldScreen(World world) {
         this.world = world;
