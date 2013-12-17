@@ -1,5 +1,6 @@
 package org.ludumdare28.view;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -39,12 +40,18 @@ public class ScreenView implements View {
 
         // Notify new screen that it is now open
         if (this.currentScreen != null) {
-            this.currentScreen.open(inputHandler, inputMultiplexer);
+            this.currentScreen.open(inputHandler, inputMultiplexer, this);
         }
     }
 
     @Override public void update(double timeSinceLastCall, double totalGameTime) {
-        if (currentScreen != null) currentScreen.update(timeSinceLastCall, totalGameTime);
+        if (currentScreen != null) {
+            currentScreen.update(timeSinceLastCall, totalGameTime);
+
+            if (currentScreen.isQuit()) {
+                Gdx.app.exit();
+            }
+        }
     }
 
     @Override public void render(TextureAtlas textureAtlas, SpriteBatch spriteBatch, OrthographicCamera camera) {

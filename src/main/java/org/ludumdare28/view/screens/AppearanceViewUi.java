@@ -75,6 +75,11 @@ public class AppearanceViewUi extends Actor {
 
     public void setViewedThing(Thing viewedThing) {
         this.viewedThing = viewedThing;
+        if (viewedThing == null) {
+            terrainType = null;
+            appearance = null;
+            name = null;
+        }
     }
 
     private void updateFromThing() {

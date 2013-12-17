@@ -33,7 +33,8 @@ public class Player  extends ThingBase {
     private double thirstSpeedModifier;
     private double tirednessSpeedModifier;
     private double damageSpeedModifier;
-    private boolean alive;
+    private boolean alive = true;
+    private boolean trulyDead = false;
     private boolean awake;
     private boolean movingLeft;
 
@@ -53,6 +54,8 @@ public class Player  extends ThingBase {
     private List<PlayerListener> listeners = new ArrayList<PlayerListener>(3);
 
     private ControllableImpl controllable = new ControllableImpl();
+
+    private double timeToTrulyDead = 3;
 
     /**
     -the player have a name that can be given in the beginning of the game.
@@ -263,24 +266,25 @@ public class Player  extends ThingBase {
         changeTiredness(TIREDNESS_INCREASE_PER_SECOND * lastFrameDurationSeconds);
 
         // Move
-        final double speed = getSpeed();
-        double delta = Maths.mapAndClamp(speed, 0, 100, 0, MAX_WORLD_SPEED_SQUARES_PER_SECOND) * lastFrameDurationSeconds;
-        double dx = 0;
-        double dy = 0;
-        if (controllable.isActive(InputAction.LEFT))  dx -= delta;
-        if (controllable.isActive(InputAction.RIGHT)) dx += delta;
-        if (controllable.isActive(InputAction.UP))    dy += delta;
-        if (controllable.isActive(InputAction.DOWN))  dy -= delta;
+        // If yer dead you should stay dead and not mov
+        if (isAlive()) {
+            final double speed = getSpeed();
+            double delta = Maths.mapAndClamp(speed, 0, 100, 0, MAX_WORLD_SPEED_SQUARES_PER_SECOND) * lastFrameDurationSeconds;
+            double dx = 0;
+            double dy = 0;
+            if (controllable.isActive(InputAction.LEFT))  dx -= delta;
+            if (controllable.isActive(InputAction.RIGHT)) dx += delta;
+            if (controllable.isActive(InputAction.UP))    dy += delta;
+            if (controllable.isActive(InputAction.DOWN))  dy -= delta;
 
-        // Diagonal movement should be at the same speed as normal movement.
-        if (dx != 0 && dy != 0) {
-            dx /= Math.sqrt(2);
-            dy /= Math.sqrt(2);
+            // Diagonal movement should be at the same speed as normal movement.
+            if (dx != 0 && dy != 0) {
+                dx /= Math.sqrt(2);
+                dy /= Math.sqrt(2);
+            }
+
+            setPlayerPos(dx,dy);
         }
-
-        setPlayerPos(dx,dy);
-
-        // TODO: Make sure player can't walk on water
 
         // Update target
         if (stepsToTargetUpdate <= 0) {
@@ -293,6 +297,14 @@ public class Player  extends ThingBase {
         }
         else {
             stepsToTargetUpdate--;
+        }
+
+
+        if(!alive) {
+            timeToTrulyDead -= lastFrameDurationSeconds;
+            if (timeToTrulyDead <= 0) {
+                trulyDead = true;
+            }
         }
 
     }
@@ -327,5 +339,9 @@ public class Player  extends ThingBase {
 
     public boolean isMovingLeft() {
         return movingLeft;
+    }
+
+    public boolean isTrulyDead() {
+        return trulyDead;
     }
 }

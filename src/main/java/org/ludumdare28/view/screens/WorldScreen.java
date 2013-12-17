@@ -18,6 +18,7 @@ import org.ludumdare28.things.Thing;
 import org.ludumdare28.things.player.PlayerAction;
 import org.ludumdare28.things.player.PlayerAttribute;
 import org.ludumdare28.things.player.PlayerListener;
+import org.ludumdare28.view.ScreenView;
 import org.ludumdare28.world.World;
 
 import java.util.HashMap;
@@ -32,6 +33,7 @@ public class WorldScreen implements Screen {
     private GroundView groundView;
     private InputHandler inputHandler;
     private InputMultiplexer inputMultiplexer;
+    private ScreenView screenView;
     private final Map<PlayerAttribute, Slider> attributeSliders = new HashMap<PlayerAttribute, Slider>();
 
     private Stage stage;
@@ -45,9 +47,10 @@ public class WorldScreen implements Screen {
         groundView.setGround(world.getGround());
     }
 
-    @Override public void open(InputHandler inputHandler, InputMultiplexer inputMultiplexer) {
+    @Override public void open(InputHandler inputHandler, InputMultiplexer inputMultiplexer, ScreenView screenView) {
         this.inputHandler = inputHandler;
         this.inputMultiplexer = inputMultiplexer;
+        this.screenView = screenView;
         inputHandler.addControllable(world.getPlayer().getControllable(), InputConfiguration.ARROWS_AND_WASD);
 
         if (stage != null) inputMultiplexer.addProcessor(stage);
@@ -59,6 +62,11 @@ public class WorldScreen implements Screen {
         if (targetView != null) targetView.update(lastStepDurationSeconds, totalGameTime);
 
         if (stage != null) stage.act((float) lastStepDurationSeconds);
+
+        // Check for player death
+        if (world.getPlayer().isTrulyDead()) {
+            screenView.setCurrentScreen(new DeathScreen());
+        }
     }
 
     @Override public void render(TextureAtlas textureAtlas, SpriteBatch spriteBatch, OrthographicCamera camera) {
@@ -98,23 +106,6 @@ public class WorldScreen implements Screen {
         table.setFillParent(true);
         table.bottom();
         stage.addActor(table);
-
-        /*
-        // Create a button with the "default" TextButtonStyle. A 3rd parameter can be used to specify a name other than "default".
-        final TextButton button = new TextButton("Click me!", skin);
-        table.add(button);
-
-        // Add a listener to the button. ChangeListener is fired when the button's checked state changes, eg when clicked,
-        // Button#setChecked() is called, via a key press, etc. If the event.cancel() is called, the checked state will be reverted.
-        // ClickListener could have been used, but would only fire when clicked. Also, canceling a ClickListener event won't
-        // revert the checked state.
-        button.addListener(new ChangeListener() {
-            public void changed (ChangeEvent event, Actor actor) {
-                System.out.println("Clicked! Is checked: " + button.isChecked());
-                button.setText("Good job!");
-            }
-        });
-        */
 
         float uiHeight = 100;
         float targetViewWidth = 128;
@@ -177,5 +168,9 @@ public class WorldScreen implements Screen {
         table.row();
 
         attributeSliders.put(attribute, slider);
+    }
+
+    @Override public boolean isQuit() {
+        return false;
     }
 }
