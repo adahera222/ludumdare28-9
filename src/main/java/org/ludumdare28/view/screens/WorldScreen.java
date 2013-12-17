@@ -50,6 +50,7 @@ public class WorldScreen implements Screen {
     private int introTextToShow = 0;
     private double timeToNextIntroText = INTRO_DELAY;
     private Label helpText;
+    private Label timeAlive;
 
     public WorldScreen(World world) {
         this.world = world;
@@ -95,6 +96,10 @@ public class WorldScreen implements Screen {
             }
 
         }
+
+        if (timeAlive != null) {
+            timeAlive.setText("  Days Survived: " + (int)(totalGameTime / 60) + "  ");
+        }
     }
 
     @Override public void render(TextureAtlas textureAtlas, SpriteBatch spriteBatch, OrthographicCamera camera) {
@@ -134,6 +139,9 @@ public class WorldScreen implements Screen {
 
 
         table.setFillParent(true);
+        timeAlive = new Label("", skin);
+        table.top().add(timeAlive).top().expandY().top().row();
+
         helpText = new Label("", skin);
         table.center().add(helpText).spaceBottom(20).colspan(1);
         table.row();
